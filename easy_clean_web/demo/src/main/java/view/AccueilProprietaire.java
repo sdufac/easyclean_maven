@@ -34,11 +34,27 @@ public class AccueilProprietaire extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		Proprietaire user = (Proprietaire)session.getAttribute("user");
+		String[] tabMissions = HTMLfunction.proprioTabMission(user.getMissions());
 
 		response.getWriter().append("<h2>Accueil Proprietaire</h2><hr>"
-		+"<h3>Vos missions</h3>"
-		+ HTMLfunction.tabMission(user.getMissions()));
-
+		+"<div id=\"mission\"><h3>Vos missions en attente</h3>"
+		+ tabMissions[0]
+		+"<hr>"
+		+"<h3>Vos missions en cours</h3>"
+		+ tabMissions[1]
+		+"<hr>"
+		+"<h3>Votre historique de missions</h3>"
+		+ tabMissions[2]
+		+"</div>"
+		+"<div id=\"form\">"
+		+"<h3>Poster une mission</h3>"
+		+"<form action=\"controllerproprietaire\" method=\"POST\" enctype=\"application/x-www-form-urlencoded\">"
+		+"Propriétée<br>"
+		+"Instruction<br>"
+		+"<input type=\"text\" id=\"instruction\" size=\"100\"/><br>"
+		+"Date de la mission<br>"
+		+"Durée de la mission"
+		+"</div>");
 	}
 
 	/**
