@@ -132,7 +132,7 @@
           <artifactId>tomcat7-maven-plugin</artifactId>
           <version>2.2</version>
           <configuration>
-            <server>Tomcat</server>
+            <server>TomcatServer</server>
             <port>9090</port>
           </configuration>
           <dependencies>
