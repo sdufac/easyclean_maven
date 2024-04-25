@@ -33,9 +33,11 @@ public class AccueilCleaner extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Accueil Cleaner");
 		try (PrintWriter out = response.getWriter()) {
+			out.append("<form >");
 			response.setContentType("text/html;charset=UTF-8");
 
 			HTMLfunction.searchMission(out);
+			out.append("");
 		}
 	}
 
