@@ -19,10 +19,10 @@ public abstract class HTMLfunction {
 		return html;
 	}
 
-	public static String[] proprioTabMission(ArrayList <Mission>mtab){
+	public static String[] proprioTabMission(ArrayList<Mission> mtab) {
 		String[] stringTab;
 		stringTab = new String[3];
-		
+
 		String tabAvailable = "<table>";
 		String tabWaiting = "<table>";
 		String tabFinished = "<table>";
@@ -31,31 +31,29 @@ public abstract class HTMLfunction {
 		int waitingCount = 0;
 		int finishedCount = 0;
 
-		for(Mission m :mtab){
+		for (Mission m : mtab) {
 			if (m.getStatut().equals("available")) {
-				tabAvailable = tabAvailable +"<tr>";
-				tabAvailable = tabAvailable +"<th>"+m.getAdress()+"</th>";
-				tabAvailable = tabAvailable +"<th>"+m.getDate()+"</th>";
-				tabAvailable = tabAvailable +"<th>"+m.getInstruction()+"</th>";
-				tabAvailable = tabAvailable +"</tr>";
+				tabAvailable = tabAvailable + "<tr>";
+				tabAvailable = tabAvailable + "<th>" + m.getAdress() + "</th>";
+				tabAvailable = tabAvailable + "<th>" + m.getDate() + "</th>";
+				tabAvailable = tabAvailable + "<th>" + m.getInstruction() + "</th>";
+				tabAvailable = tabAvailable + "</tr>";
 
 				availableCount++;
-			}
-			else if(m.getStatut().equals("waiting")){
-				tabWaiting = tabWaiting +"<tr>";
-				tabWaiting = tabWaiting +"<th>"+m.getAdress()+"</th>";
-				tabWaiting = tabWaiting +"<th>"+m.getDate()+"</th>";
-				tabWaiting = tabWaiting +"<th>"+m.getInstruction()+"</th>";
-				tabWaiting = tabWaiting +"</tr>";
+			} else if (m.getStatut().equals("waiting")) {
+				tabWaiting = tabWaiting + "<tr>";
+				tabWaiting = tabWaiting + "<th>" + m.getAdress() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getDate() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getInstruction() + "</th>";
+				tabWaiting = tabWaiting + "</tr>";
 
 				waitingCount++;
-			}
-			else if(m.getStatut().equals("finished")){
-				tabFinished = tabFinished +"<tr>";
-				tabFinished = tabFinished +"<th>"+m.getAdress()+"</th>";
-				tabFinished = tabFinished +"<th>"+m.getDate()+"</th>";
-				tabFinished = tabFinished +"<th>"+m.getInstruction()+"</th>";
-				tabFinished = tabFinished +"</tr>";
+			} else if (m.getStatut().equals("finished")) {
+				tabFinished = tabFinished + "<tr>";
+				tabFinished = tabFinished + "<th>" + m.getAdress() + "</th>";
+				tabFinished = tabFinished + "<th>" + m.getDate() + "</th>";
+				tabFinished = tabFinished + "<th>" + m.getInstruction() + "</th>";
+				tabFinished = tabFinished + "</tr>";
 
 				finishedCount++;
 			}
@@ -64,36 +62,34 @@ public abstract class HTMLfunction {
 		tabWaiting = tabWaiting + "</table>";
 		tabFinished = tabFinished + "</table>";
 
-		if(availableCount == 0){
+		if (availableCount == 0) {
 			tabAvailable = "Aucune mission en attente";
 		}
-		if(waitingCount == 0){
+		if (waitingCount == 0) {
 			tabWaiting = "Aucune mission en cours";
 		}
-		if(finishedCount == 0){
+		if (finishedCount == 0) {
 			tabFinished = "Aucune mission terminée";
 		}
 
-		stringTab[0]=tabAvailable;
-		stringTab[1]=tabWaiting;
-		stringTab[2]=tabFinished;
+		stringTab[0] = tabAvailable;
+		stringTab[1] = tabWaiting;
+		stringTab[2] = tabFinished;
 
 		return stringTab;
 	}
 
 	public static void searchMission(PrintWriter out) {
-		out.append("<!DOCTYPE html>");
-		out.append("<html lang='fr'>");
 		out.append("<head>");
-		out.append("<meta charset='UTF-8'>");
 		out.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-		out.append("<title>Slider Simple</title>");
 		out.append("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
 		out.append("</head>");
 		out.append("<body>");
 		out.append("<form name='result' id='result_search'>");
+		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
+		out.append("<div>Adresse : <div><input type='text' name='address' id='address'></div></div>");
 		out.append("<div class='slider-container'>");
-		out.append("<input type='range' min='1' max='100' value='50' class='slider' id='myRange'>");
+		out.append("<input type='range' min='0' max='100' value='50' class='slider' id='myRange'>");
 		out.append("<p>Valeur: <span id='value'></span></p>");
 		out.append("</div>");
 		out.append("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");

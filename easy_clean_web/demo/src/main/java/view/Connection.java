@@ -10,35 +10,41 @@ import java.io.IOException;
 /**
  * Servlet implementation class Connection
  */
-@WebServlet(name = "Connection" , urlPatterns = {"/connection"})
+@WebServlet(name = "Connection", urlPatterns = { "/connection" })
 public class Connection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Connection() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Connection() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().append("<h2>Connection</h2><hr>"
 				+ "<form action=\"controllerconnection\" method=\"POST\" enctype=\"application/x-www-form-urlencoded\">"
 				+ "Login <input type=\"text\" name=\"login\">"
 				+ "Mot de passe <input type=\"password\" name=\"password\">"
 				+ "<br><input type=\"submit\" value=\"Connection\">"
 				+ "</form>");
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
