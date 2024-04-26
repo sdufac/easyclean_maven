@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Servlet implementation class AccueilInvite
  */
-@WebServlet(name = "AccueilInvite" , urlPatterns = {"/invite"})
+@WebServlet(name = "AccueilInvite" , urlPatterns = {"/"})
 public class AccueilInvite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

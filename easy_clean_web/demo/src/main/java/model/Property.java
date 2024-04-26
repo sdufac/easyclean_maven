@@ -47,10 +47,4 @@ public class Property {
     public void setSurface(int surface) {
         this.surface = surface;
     }
-
-
-	public String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

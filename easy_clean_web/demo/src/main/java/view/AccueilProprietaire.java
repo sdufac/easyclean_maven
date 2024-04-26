@@ -50,9 +50,11 @@ public class AccueilProprietaire extends HttpServlet {
 		+"<h3>Poster une mission</h3>"
 		+"<form action=\"controllerproprietaire\" method=\"POST\" enctype=\"application/x-www-form-urlencoded\">"
 		+"Propriétée<br>"
+		+HTMLfunction.comboProprietaire(user.getProperties())+"<br>"
 		+"Instruction<br>"
 		+"<input type=\"text\" id=\"instruction\" size=\"100\"/><br>"
 		+"Date de la mission<br>"
+		+"<input type=\"date\" id=\"date\" name=\"mission_date\" value=\"2024-04-25 min=\"2024-04-25\" max=\"2025-12-31\"><br>"
 		+"Durée de la mission"
 		+"</div>");
 	}
