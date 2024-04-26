@@ -97,4 +97,16 @@ public abstract class HTMLfunction {
 		out.append("</body>");
 		out.append("</html>");
 	}
+
+	public static String comboProprietaire(ArrayList<Property> tab){
+		String combo = "<select name=\"properties\" id=\"propties\">";
+
+		for(Property p: tab){
+			combo = combo+"<option value=\""+ p.getIdProperty() +"\">"+p.getAdress()+"</option>";
+		}
+
+		combo = combo + "</select>";
+
+		return combo;
+	}
 }
