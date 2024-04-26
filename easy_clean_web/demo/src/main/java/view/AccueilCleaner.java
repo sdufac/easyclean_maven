@@ -31,11 +31,12 @@ public class AccueilCleaner extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Accueil Cleaner");
+		response.getWriter().append("<h3>Accueil Cleaner</h3>");
+		response.getWriter().append("<div style='display: flex'>");
 		try (PrintWriter out = response.getWriter()) {
-			out.append("<form >");
 			response.setContentType("text/html;charset=UTF-8");
 
+			HTMLfunction.profilUser(out);
 			HTMLfunction.searchMission(out);
 			out.append("");
 		}

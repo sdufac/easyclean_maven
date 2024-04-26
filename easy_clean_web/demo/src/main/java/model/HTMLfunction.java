@@ -85,16 +85,42 @@ public abstract class HTMLfunction {
 		out.append("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
 		out.append("</head>");
 		out.append("<body>");
-		out.append("<form name='result' id='result_search'>");
+		out.append("<div id='mission' style='flex: 2;width: 150vh'>");
+		out.append("<form name='result' id='result_search' style='width: 500px' action='/rechercheMission'>");
 		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
 		out.append("<div>Adresse : <div><input type='text' name='address' id='address'></div></div>");
+		out.append("<p>Kilomètres maximum :</p>");
+		out.append("<div>");
 		out.append("<div class='slider-container'>");
-		out.append("<input type='range' min='0' max='100' value='50' class='slider' id='myRange'>");
-		out.append("<p>Valeur: <span id='value'></span></p>");
+		out.append("<input type='range' min='0' max='100' value='0' class='slider' id='myRange'>");
+		out.append("</div>");
+		out.append("<div class='slider-labels'>");
+		out.append("<span class='slider-value'>0</span>");
+		out.append("<span class='slider-value'>5</span>");
+		out.append("<span class='slider-value'>10</span>");
+		out.append("<span class='slider-value'>15</span>");
+		out.append("<span class='slider-value'>20</span>");
+		out.append("<span class='slider-value'>30</span>");
+		out.append("<span class='slider-value'>50</span>");
+		out.append("<span class='slider-value'>75</span>");
+		out.append("<span class='slider-value'>100</span>");
+		out.append("</div>");
+		out.append("</div>");
+		out.append("<div>");
+		out.append("<button id='searchMission'>Rechercher</button>");
 		out.append("</div>");
 		out.append("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
 		out.append("</form>");
-		out.append("</body>");
-		out.append("</html>");
+		out.append("</div>");
+	}
+
+	public static void profilUser(PrintWriter out) {
+		out.append("<div id='profilcontainer' style='flex: 1; border-right= 1;>");
+		out.append("<img src='src/main/webapp/WEB-INF/profil_picture/'>");
+		out.append("<br>");
+		out.append("<button id='logout'>Logout</button>");
+		out.append("<br>");
+		out.append("<button id='showProfil'>Voir profil</button>");
+		out.append("</div>");
 	}
 }
