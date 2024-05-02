@@ -14,6 +14,7 @@ public class Mission {
     private int id_propriete;
     private int idProprio;
     private String statut;
+    private Cleaner cleaner;
 
     public Mission(String date, double duration, String instruction, double limitStart, double limitEnd, String adress, int id_Propriete, int idProprio,String statut) {
         this.date = date;
@@ -130,6 +131,12 @@ public class Mission {
     // double durationMission = (surface / 50.0) * 0.5;
     // this.duration = String.valueOf(durationMission);
     // }
-	
+
+    public void setCleaner(Cleaner c){
+        this.cleaner = c;
+    }
+    public Cleaner getCleaner(){
+        return this.cleaner;
+    }
 
 }

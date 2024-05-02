@@ -1,5 +1,7 @@
 model\Cleaner.class
 model\DAOacces.class
+controller\ControllerPostulation.class
+view\Profil.class
 controller\ControllerConnection.class
 model\Property.class
 view\AccueilAdmin.class
@@ -12,6 +14,7 @@ controller\ControllerAnnulerMission.class
 model\GeocodingService.class
 model\Litige.class
 view\VueMission.class
+controller\ControllerFinMission.class
 controller\ControllerAddProperty.class
 model\Utilisateur.class
 controller\ControllerInvite.class
@@ -20,7 +23,9 @@ view\AfficherMission.class
 view\Connection.class
 controller\ControllerProprietaire.class
 view\CreationCompte.class
+controller\ControllerInfoMission.class
 model\Proprietaire.class
+model\Postulation.class
 model\Mission.class
 model\HTMLfunction.class
 model\Admin.class

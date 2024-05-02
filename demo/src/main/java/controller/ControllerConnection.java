@@ -11,6 +11,7 @@ import model.Cleaner;
 import model.DAOacces;
 import model.Litige;
 import model.Mission;
+import model.Postulation;
 import model.Property;
 import model.Proprietaire;
 import java.io.IOException;
@@ -123,23 +124,52 @@ public class ControllerConnection extends HttpServlet {
 					
 					//Creation des missions
 					Statement proprietee = bdd.getConnection().createStatement();
-					strQuery ="SELECT * FROM mission JOIN propriete ON id_propriete=propriete_id JOIN statut_mission ON statut=statut_id JOIN postulation ON mission_id = idMission WHERE id_proprietaire =" +user.getId();
+					strQuery ="SELECT * FROM mission JOIN propriete ON id_propriete=propriete_id JOIN statut_mission ON statut=statut_id LEFT JOIN users ON id_cleaner=id_user WHERE id_proprietaire =" +user.getId();
 					ResultSet rsMission = proprietee.executeQuery(strQuery);
 					
 					while(rsMission.next()) {
-						String adress = rsMission.getString(16)+" "+rsMission.getString(19)+" "+rsMission.getString(20);
-						Mission m = new Mission(rsMission.getString(2),rsMission.getDouble(3),rsMission.getString(4),rsMission.getDouble(10),rsMission.getDouble(11),adress,rsMission.getInt(7),user.getId(),rsMission.getString("nom"));
-						m.setIdMission(rsMission.getInt(1));
-						user.setMission(m);
-						if(m.getStatut().equals("waiting") || m.getStatut().equals("finished")){
+						String adress = rsMission.getString("adress")+" "+rsMission.getString("ville")+" "+rsMission.getString("code_postal");
+						Mission m = new Mission(rsMission.getString("date_mission"),rsMission.getDouble("time_mission"),rsMission.getString("instruction"),rsMission.getDouble("proprietaire_start"),rsMission.getDouble("proprietaire_end"),adress,rsMission.getInt("id_propriete"),user.getId(),rsMission.getString("nom"));
+						m.setIdMission(rsMission.getInt("mission_id"));
+						if(m.getStatut().equals("waiting") || m.getStatut().equals("finished") || m.getStatut().equals("cleanerFinished")){
+							Cleaner cleaner = new Cleaner(rsMission.getString("first_name"),rsMission.getString("second_name"),rsMission.getString("username"),rsMission.getString("mail"),rsMission.getString("password"),rsMission.getInt("age"),rsMission.getString("bio"),rsMission.getInt("phone_number"),rsMission.getString("date_of_birth"),rsMission.getFloat("note"),rsMission.getInt("nb_mission"),rsMission.getInt("perimeter"),rsMission.getInt("tarif_horaire"));
 							m.setHoraireCleaner(rsMission.getDouble("cleaner_start"),rsMission.getDouble("cleaner_end"));
+							m.setCleaner(cleaner);
+							user.setMission(m);
 						}
-
-						if(rsMission.getString("nom").equals("available") && rsMission.getInt("idMission")!=0){
-							user.setPostulation(m);
+						else if(m.getStatut().equals("available")){
+							user.setMission(m);
 						}
 					}
-					
+
+					//Creation des postulations
+					String strPostulation = "SELECT * FROM postulation JOIN users ON idCleaner=id_user WHERE idMission =";
+					int count = 1;
+
+					for(Mission m: user.getMissions()){
+						if(count<user.getMissions().size()){
+							strPostulation = strPostulation + m.getIdMission()+" OR idMission =";
+						}
+						else if(count == user.getMissions().size()){
+							strPostulation = strPostulation + m.getIdMission();
+						}
+						count++;
+					}
+					ResultSet rsPostulation = proprietee.executeQuery(strPostulation);
+
+					while (rsPostulation.next()) {
+						Mission pMission = null;
+						for(Mission m: user.getMissions()){
+							if(m.getIdMission() == rsPostulation.getInt("idMission")){
+								pMission = m;
+							}
+						}
+						Cleaner cleaner = new Cleaner(rsPostulation.getString("first_name"),rsPostulation.getString("second_name"),rsPostulation.getString("username"),rsPostulation.getString("mail"),rsPostulation.getString("password"),rsPostulation.getInt("age"),rsPostulation.getString("bio"),rsPostulation.getInt("phone_number"),rsPostulation.getString("date_of_birth"),rsPostulation.getFloat("note"),rsPostulation.getInt("nb_mission"),rsPostulation.getInt("perimeter"),rsPostulation.getInt("tarif_horaire"));
+						cleaner.setId(rsPostulation.getInt("id_user"));
+						Postulation p = new Postulation(rsPostulation.getInt("idPostulation"), pMission, cleaner, rsPostulation.getFloat("horaireStart"), rsPostulation.getFloat("horaireEnd"), rsPostulation.getFloat("salaireCleaner"));
+						user.setPostulation(p);
+					}
+
 					//Creation des commentaires
 					Statement comment = bdd.getConnection().createStatement();
 					String strComment ="SELECT * FROM commentaire WHERE idUser ="+user.getId();

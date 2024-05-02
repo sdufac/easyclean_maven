@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  * Classe de demandeur de menage, implementer un vector de Propriete quand la classe sera faites
@@ -10,7 +11,7 @@ public class Proprietaire extends Utilisateur{
 
 	ArrayList<Mission> missions;
 	ArrayList<Property> properties;
-	ArrayList<Mission> postulations;
+	ArrayList<Postulation> postulations;
 	String statut;
 
 	public Proprietaire(String firstName, String secondName,String username,String email, String password, 
@@ -19,6 +20,7 @@ public class Proprietaire extends Utilisateur{
 		this.statut = "Proprietaire";
 		this.properties = new ArrayList<Property>();
 		this.missions = new ArrayList<Mission>();
+		this.postulations = new ArrayList<Postulation>();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -46,12 +48,39 @@ public class Proprietaire extends Utilisateur{
 		this.statut = statut;
 	}
 
-	public ArrayList<Mission> getPostulation(){
+	public ArrayList<Postulation> getPostulation(){
 		return this.postulations;
 	}
-	
-	public void setPostulation(Mission m){
-		this.postulations.add(m);
+	public Postulation getPostulationById(int idPostulation){
+		for(Postulation p:this.getPostulation()){
+			if(p.getId()==idPostulation){
+				return p;
+			}
+		}
+		return null;
 	}
+	public void setPostulation(Postulation p){
+		this.postulations.add(p);
+	}
+	public void setPostulation(ArrayList<Postulation> ptab){
+		this.postulations = ptab;
+	}
+
 	
+	public void removePostulation(int idMission){
+		for(Postulation p :this.getPostulation()){
+			if(p.getMission().getIdMission() == idMission){
+				this.getPostulation().remove(p);
+			}
+		}
+	}
+
+	public Mission getMissionById(int idMission){
+		for(Mission m: this.getMissions()){
+			if(m.getIdMission() == idMission){
+				return m;
+			}
+		}
+		return null;
+	}
 }

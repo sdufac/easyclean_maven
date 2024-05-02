@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
 import java.io.PrintWriter;
 
 public abstract class HTMLfunction {
@@ -19,7 +21,7 @@ public abstract class HTMLfunction {
 		return html;
 	}
 
-	public static String[] proprioTabMission(ArrayList<Mission> mtab) {
+	public static String[] proprioTabMission(ArrayList<Mission> mtab , ArrayList<Postulation> ptab) {
 		String[] stringTab;
 		stringTab = new String[3];
 
@@ -33,11 +35,19 @@ public abstract class HTMLfunction {
 
 		for (Mission m : mtab) {
 			if (m.getStatut().equals("available")) {
+				int pCount = 0;
+				for(Postulation p : ptab){
+					if(p.getMission().getIdMission() == m.getIdMission()){
+						pCount++;
+					}
+				}
+
 				tabAvailable = tabAvailable + "<tr>";
 				tabAvailable = tabAvailable + "<th>" + m.getAdress() + "</th>";
 				tabAvailable = tabAvailable + "<th>" + m.getDate() + "</th>";
 				tabAvailable = tabAvailable + "<th>" + m.getInstruction() + "</th>";
 				tabAvailable = tabAvailable + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
+				tabAvailable = tabAvailable + "<th>("+ pCount +")</th>";
 				tabAvailable = tabAvailable + "</tr>";
 
 				availableCount++;
@@ -50,7 +60,17 @@ public abstract class HTMLfunction {
 				tabWaiting = tabWaiting + "</tr>";
 
 				waitingCount++;
-			} else if (m.getStatut().equals("finished")) {
+			} else if (m.getStatut().equals("cleanerFinished")){
+				tabWaiting = tabWaiting + "<tr>";
+				tabWaiting = tabWaiting + "<th>" + m.getAdress() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getDate() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getInstruction() + "</th>";
+				tabWaiting = tabWaiting + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
+				tabWaiting = tabWaiting + "<th>Terminé<th>";
+				tabWaiting = tabWaiting + "</tr>";
+
+				waitingCount++;
+			}else if (m.getStatut().equals("finished")) {
 				tabFinished = tabFinished + "<tr>";
 				tabFinished = tabFinished + "<th>" + m.getAdress() + "</th>";
 				tabFinished = tabFinished + "<th>" + m.getDate() + "</th>";
@@ -156,7 +176,7 @@ public abstract class HTMLfunction {
 		if(m.getStatut().equals("waiting") || m.getStatut().equals("finished")){
 			out.append("<br>Horraire du cleaner :" + m.getHoraireCleaner().get(0) + "-" + m.getHoraireCleaner().get(1));
 		}else if(m.getStatut().equals("available")){
-			out.append("<br><form action=\"annulermission\" method=\"post\"><input type=\"hidden\" name=\"idmission\" value=\""+m.getIdMission()+"\"/><input type=\"submit\" value=\"Annuler\"/></form>");
+			out.append("<br><form action=\"annulermission\" method=\"post\"><input type=\"hidden\" name=\"idmission\" value=\""+m.getIdMission()+"\"/><input type=\"submit\" value=\"Annuler la mission\"/></form>");
 		}
 	}
 }

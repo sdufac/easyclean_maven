@@ -52,7 +52,9 @@ public class ControllerAnnulerMission extends HttpServlet {
         DAOacces bdd = new DAOacces("easy_clean", "root", "");
         try{
             Statement stDelete = bdd.getConnection().createStatement();
+			String strPostulation = "DELETE FROM postulation WHERE idMission =" +id;
             String strQuery = "DELETE FROM mission WHERE mission_id ="+id+";";
+			stDelete.executeUpdate(strPostulation);
             stDelete.executeUpdate(strQuery);
 
             HttpSession session = request.getSession();
