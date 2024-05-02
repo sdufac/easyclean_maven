@@ -3,11 +3,14 @@ model\DAOacces.class
 controller\ControllerPostulation.class
 view\Profil.class
 controller\ControllerConnection.class
+view\VueLitige.class
 model\Property.class
 view\AccueilAdmin.class
 view\AccueilCleaner.class
 view\AccueilProprietaire.class
 view\AddProperty.class
+controller\ControllerCommentaire.class
+controller\ControllerLitige.class
 view\AccueilInvite.class
 controller\ControleurRechercheMission.class
 controller\ControllerAnnulerMission.class
@@ -23,9 +26,11 @@ view\AfficherMission.class
 view\Connection.class
 controller\ControllerProprietaire.class
 view\CreationCompte.class
+view\ProfilUser.class
 controller\ControllerInfoMission.class
 model\Proprietaire.class
 model\Postulation.class
 model\Mission.class
+controller\ControllerProfilUser.class
 model\HTMLfunction.class
 model\Admin.class

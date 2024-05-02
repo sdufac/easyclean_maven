@@ -1,3 +1,4 @@
+C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerProfilUser.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\HTMLfunction.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerProprietaire.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\Cleaner.java
@@ -5,11 +6,14 @@ C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerInfoMission.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerPostulation.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\Litige.java
+C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerLitige.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\Utilisateur.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerAnnulerMission.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\Postulation.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\AccueilInvite.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\CreationCompte.java
+C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\VueLitige.java
+C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerCommentaire.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\AccueilCleaner.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\AccueilProprietaire.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerInvite.java
@@ -23,6 +27,7 @@ C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\AddProperty.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControleurRechercheMission.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\AfficherMission.java
+C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\view\ProfilUser.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\controller\ControllerAddProperty.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\Mission.java
 C:\Users\greta.2021-PQP-SIO10\projects\java\easy_clean_maven\demo\src\main\java\model\Admin.java

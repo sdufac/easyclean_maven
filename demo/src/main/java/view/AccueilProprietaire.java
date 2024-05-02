@@ -34,7 +34,7 @@ public class AccueilProprietaire extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		Proprietaire user = (Proprietaire)session.getAttribute("user");
-		String[] tabMissions = HTMLfunction.proprioTabMission(user.getMissions(),user.getPostulation());
+		String[] tabMissions = HTMLfunction.proprioTabMission(user.getMissions(),user.getPostulation(),user);
 
 		response.getWriter().append("<h2>Accueil Proprietaire</h2><hr>"
 		+"<button type=\"button\" onclick=\"location.href='addproperty'\"/>Enregistrer une propriétée</button> <button type=\"button\" onclick=\"location.href='profil'\"/>Voir Profil</button><hr>"

@@ -89,6 +89,8 @@ public class ControllerConnection extends HttpServlet {
 						m.setIdMission(rsMissionCleaner.getInt("mission_id"));
 						user.addPostulation(m);
 					}
+
+					//Creation des commentaires
 					Statement comment = bdd.getConnection().createStatement();
 					String strComment ="SELECT * FROM commentaire WHERE idUser ="+user.getId();
 					ResultSet rsComment = comment.executeQuery(strComment);
@@ -133,6 +135,7 @@ public class ControllerConnection extends HttpServlet {
 						m.setIdMission(rsMission.getInt("mission_id"));
 						if(m.getStatut().equals("waiting") || m.getStatut().equals("finished") || m.getStatut().equals("cleanerFinished")){
 							Cleaner cleaner = new Cleaner(rsMission.getString("first_name"),rsMission.getString("second_name"),rsMission.getString("username"),rsMission.getString("mail"),rsMission.getString("password"),rsMission.getInt("age"),rsMission.getString("bio"),rsMission.getInt("phone_number"),rsMission.getString("date_of_birth"),rsMission.getFloat("note"),rsMission.getInt("nb_mission"),rsMission.getInt("perimeter"),rsMission.getInt("tarif_horaire"));
+							cleaner.setId(rsMission.getInt("id_user"));	
 							m.setHoraireCleaner(rsMission.getDouble("cleaner_start"),rsMission.getDouble("cleaner_end"));
 							m.setCleaner(cleaner);
 							user.setMission(m);
@@ -179,7 +182,19 @@ public class ControllerConnection extends HttpServlet {
 						user.setComment(rsComment.getFloat("note"), rsComment.getString("commentaire"));
 					}
 					user.getMoy();
+
+					//Set litiges
+					Statement stLitige = bdd.getConnection().createStatement();
+					String strLitige = "SELECT * FROM litige WHERE id_autor ="+user.getId();
+					ResultSet rsLitige = stLitige.executeQuery(strLitige);
 					
+					while(rsLitige.next()){
+						Mission missionl = user.getMissionById(rsLitige.getInt("id_mission"));
+						Cleaner litigec = missionl.getCleaner();
+						Litige l = new Litige(litigec,rsLitige.getString("text_litige"),rsLitige.getString("image1"),rsLitige.getString("image2"),rsLitige.getString("image3"),missionl);
+						user.setLitiges(l);
+					}
+
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
 					

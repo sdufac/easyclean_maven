@@ -21,7 +21,7 @@ public abstract class HTMLfunction {
 		return html;
 	}
 
-	public static String[] proprioTabMission(ArrayList<Mission> mtab , ArrayList<Postulation> ptab) {
+	public static String[] proprioTabMission(ArrayList<Mission> mtab , ArrayList<Postulation> ptab ,Proprietaire user) {
 		String[] stringTab;
 		stringTab = new String[3];
 
@@ -71,11 +71,16 @@ public abstract class HTMLfunction {
 
 				waitingCount++;
 			}else if (m.getStatut().equals("finished")) {
+				
+
 				tabFinished = tabFinished + "<tr>";
 				tabFinished = tabFinished + "<th>" + m.getAdress() + "</th>";
 				tabFinished = tabFinished + "<th>" + m.getDate() + "</th>";
 				tabFinished = tabFinished + "<th>" + m.getInstruction() + "</th>";
 				tabFinished = tabFinished + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
+				if(user.checkMissionLitige(m.getIdMission())!=null){
+					tabFinished = tabFinished + "<th>Litige en cours</th>";
+				}	
 				tabFinished = tabFinished + "</tr>";
 
 				finishedCount++;

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.sql.*;
@@ -22,7 +23,8 @@ public class Utilisateur {
 	private String dateOfBirth;
 	private Date dateOfCreation;
 	private HashMap<Float, String> comment;
-	float globalGrade;
+	private float globalGrade;
+	private ArrayList<Litige> litiges;
 
 	public Utilisateur(String username, String firstName, String secondName, int age, String password,
 			String email, int phoneNumber, String dateOfBirth, float globalGrade,String description) {
@@ -38,6 +40,7 @@ public class Utilisateur {
 		this.comment = new HashMap<Float, String>();
 		this.globalGrade = globalGrade;
 		this.description = description;
+		this.litiges = new ArrayList<>();
 	}
 	
 	public int getId() {
@@ -185,5 +188,21 @@ public class Utilisateur {
 		}
 		moy = moy/this.comment.size();
 		this.globalGrade = moy;	
+	}
+
+	public void setLitiges(Litige litige){
+		this.litiges.add(litige);
+	}
+	public void setLitiges(ArrayList<Litige> ltab){
+		this.litiges = ltab;
+	}
+	public ArrayList<Litige> getLitiges(){
+		return this.litiges;
+	}
+	public Litige checkMissionLitige(int idMission){
+		for(Litige l : this.getLitiges()){
+			if(l.getLmission().getIdMission()== idMission)return l;
+		}
+		return null;
 	}
 }

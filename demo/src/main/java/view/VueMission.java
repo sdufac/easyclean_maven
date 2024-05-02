@@ -87,10 +87,16 @@ public class VueMission extends HttpServlet {
 		//Gestion du cleaner ayant participé à la mission
 		else if(mission.getCleaner() != null && mission.getStatut().equals("waiting") || mission.getStatut().equals("finished") || mission.getStatut().equals("cleanerFinished")){
 			Cleaner c = mission.getCleaner();
-			html = "<h2>Cleaner</h2><hr>" +
-			c.getFirstName() +" "+c.getSecondName();
+			html = "<h2>Cleaner</h2><hr>"
+			+ "<form method=\"post\" action=\"controllerprofiluser\">"+c.getFirstName()+" "+c.getSecondName()+"  <input type=\"hidden\" name=\"id\" value=\""+c.getId()+"\"/><input type=\"submit\" value=\"voir le profil\"/></form>";
 		}
 
+		//Bouton creation de litige si la mission est terminé
+		if(mission.getStatut().equals("finished") && user.checkMissionLitige(mission.getIdMission()) == null){
+			html = html + "<br><form method=\"post\" action=\"litige\"><input type=\"hidden\" name=\"idmission\" value=\""+mission.getIdMission()+"\"/><input type=\"submit\" value=\"Déclarer un litige\"/></form>";
+		}
+
+		//Bouton pour mettre fin a la mission quand le cleaner a terminé
 		if(mission.getStatut().equals("cleanerFinished")){
 			html = html + "<br><br><form method=\"post\" action=\"finmission\"><input type=\"hidden\" name=\"idmission\" value=\""+mission.getIdMission()+"\"/><input type=\"submit\" value=\"Confirmer la fin de la mission\"/></form>";
 		}
@@ -100,5 +106,4 @@ public class VueMission extends HttpServlet {
 		out.append(html);
         out.append("<br><button type=\"button\" onclick=\"location.href='proprietaire'\">Retour</button>");
 	}
-
 }

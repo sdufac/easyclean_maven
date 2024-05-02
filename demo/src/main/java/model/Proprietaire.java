@@ -9,10 +9,10 @@ import java.util.Hashtable;
  */
 public class Proprietaire extends Utilisateur{
 
-	ArrayList<Mission> missions;
-	ArrayList<Property> properties;
-	ArrayList<Postulation> postulations;
-	String statut;
+	private ArrayList<Mission> missions;
+	private ArrayList<Property> properties;
+	private ArrayList<Postulation> postulations;
+	private String statut;
 
 	public Proprietaire(String firstName, String secondName,String username,String email, String password, 
 			 int age,String description, int phoneNumber, String dateOfBirth,float globalGrade) {
