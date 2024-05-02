@@ -17,7 +17,7 @@ public abstract class GeocodingService {
     private static final String USER = "toto";
     private static final String PASS = "titi";
 
-    DAOacces bdd = new DAOacces("easy_clean", "root", "");
+    DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
 
     public static JSONObject obtenirCoordonneesPropriete(String completeAddress) throws Exception {
         // Récupérer l'adresse complète de la base de données

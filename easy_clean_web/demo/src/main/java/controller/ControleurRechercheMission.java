@@ -17,8 +17,7 @@ public class ControleurRechercheMission {
     // private String strUrl;
     SortedMap<Double, Mission> ResultMission = new TreeMap<>();
 
-    public ControleurRechercheMission(Cleaner user, String address, double d) {
-
+    public void AjoutMission(Cleaner user, String address, String city, String postalCode, int range) {
         DAOacces dao = new DAOacces(dbName, login, password);
         try {
             String strQuery = "SELECT * FROM Mission WHERE statut = '1';";

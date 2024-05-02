@@ -15,7 +15,8 @@ public class Mission {
     private int idProprio;
     private String statut;
 
-    public Mission(String date, double duration, String instruction, double limitStart, double limitEnd, String adress, int id_Propriete, int idProprio,String statut) {
+    public Mission(String date, double duration, String instruction, double limitStart, double limitEnd, String adress,
+            int id_Propriete, int idProprio, String statut) {
         this.date = date;
         this.duration = duration;
         this.instruction = instruction;
@@ -23,16 +24,17 @@ public class Mission {
         this.limit.add(limitEnd);
         this.adress = adress;
         this.id_propriete = id_Propriete;
-        this.idProprio = idProprio;   
+        this.idProprio = idProprio;
         this.statut = statut;
     }
-    
-    public void addHoraireCleaner(double a,double b) {
-    	this.horaireCleaner.add(a);
-    	this.horaireCleaner.add(b);
+
+    public void addHoraireCleaner(double a, double b) {
+        this.horaireCleaner.add(a);
+        this.horaireCleaner.add(b);
     }
-    public List<Double> getHoraireCleaner(){
-    	return this.horaireCleaner;
+
+    public List<Double> getHoraireCleaner() {
+        return this.horaireCleaner;
     }
 
     public static double CalculDureeMission(int surface) {
@@ -42,25 +44,24 @@ public class Mission {
 
         return durationMission;
     }
-    
-    
+
     public List<Double> getLimit() {
-		return limit;
-	}
+        return limit;
+    }
 
-	public void setLimit(Double limit) {
-		this.limit.add(limit);
-	}
+    public void setLimit(Double limit) {
+        this.limit.add(limit);
+    }
 
-	public int getId_propriete() {
-		return id_propriete;
-	}
+    public int getId_propriete() {
+        return id_propriete;
+    }
 
-	public void setId_propriete(int id_propriete) {
-		this.id_propriete = id_propriete;
-	}
+    public void setId_propriete(int id_propriete) {
+        this.id_propriete = id_propriete;
+    }
 
-	public int getId_proprio() {
+    public int getId_proprio() {
         return id_propriete;
     }
 
@@ -91,9 +92,9 @@ public class Mission {
     public int getIdMission() {
         return idMission;
     }
-    
+
     public void setIdMission(int id) {
-    	this.idMission = id;
+        this.idMission = id;
     }
 
     public String getAdress() {
@@ -104,27 +105,30 @@ public class Mission {
         this.adress = adress;
     }
 
-	public int getIdProprio() {
-		return idProprio;
-	}
+    public int getIdProprio() {
+        return idProprio;
+    }
 
-	public void setIdProprio(int idProprio) {
-		this.idProprio = idProprio;
-	}
+    public void setIdProprio(int idProprio) {
+        this.idProprio = idProprio;
+    }
 
-	public String getStatut() {
-		return statut;
-	}
+    public String getStatut() {
+        return statut;
+    }
 
-	public void setStatut(String statut) {
-		this.statut = statut;
-	}
-	
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    private List<Mission> AjoutMission(String address, String city, String postalCode, int range) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'AjoutMission'");
+    }
 
     // public void calculDureeMission(int surface) {
     // double durationMission = (surface / 50.0) * 0.5;
     // this.duration = String.valueOf(durationMission);
     // }
-	
 
 }

@@ -91,7 +91,7 @@ public abstract class HTMLfunction {
 				"<form name='result' id='result_search' style='width: 700px' action='/rechercheMission  onsubmit='return onSubmitForm()'>");
 		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
 		out.append(
-				"<div>Adresse : <div>rue :<input type='text' name='address' id='address'></div> <div>ville :<input type='text' name='city' id='city'></div><div>code postal :<input type='text' name='postalcode' id='postalcode'></div></div>");
+				"<form name='result' id='result_search' style='width: 700px' action='/rechercheMission' onsubmit='return onSubmitForm()'>");
 		out.append("<p>Kilomètres maximum :</p>");
 		out.append("<div>");
 		out.append("<div class='slider-container'>");
@@ -120,7 +120,7 @@ public abstract class HTMLfunction {
 	public static void profilUser(PrintWriter out, Utilisateur cleaner) {
 		System.out.println("firstname:" + cleaner.getFirstName());
 		out.append("<div id='profilcontainer' style='flex: 1; border-right= 1;>");
-		out.append("<img src='src/main/webapp/WEB-INF/profil_picture/'>");
+		out.append("<img src='src/main/webapp/WEB-INF/profil_picture/'" + Cleaner.getUsername() ">");
 		out.append("<br>");
 		out.append("<div>Nom : ").append(cleaner.getFirstName() + " " + cleaner.getSecondName());
 		out.append("</div>");
@@ -136,7 +136,7 @@ public abstract class HTMLfunction {
 		out.append("</div>");
 		out.append("<button id='logout'>Logout</button>");
 		out.append("<br>");
-		out.append("<button id='showProfil'>Voir profil</button>");
+		out.append("<button id='showProfil' onAction='/modifProfil'> Voir profil</button>");
 		out.append("</div>");
 	}
 
@@ -159,6 +159,10 @@ public abstract class HTMLfunction {
 		out.append("<div class= missionfinded>");
 
 		out.append("</div>");
+
+	}
+
+	public static void modifProfil(PrintWriter out, Utilisateur user) {
 
 	}
 }
