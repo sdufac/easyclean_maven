@@ -12,7 +12,7 @@ import java.util.SortedMap;
 import model.*;
 import controller.*;
 
-@WebServlet(name = "AccueilAdmin", urlPatterns = { "/rechercheMission" })
+@WebServlet(name = "AfficherMission", urlPatterns = { "/rechercheMission" })
 public class AfficherMission extends HttpServlet {
 
     /* @see HttpServlet#HttpServlet() */

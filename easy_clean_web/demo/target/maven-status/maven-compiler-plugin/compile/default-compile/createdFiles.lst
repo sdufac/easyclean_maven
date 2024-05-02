@@ -4,6 +4,7 @@ model\Litige.class
 model\Utilisateur.class
 controller\ControllerConnection.class
 controller\ControllerInvite.class
+view\AfficherMission.class
 view\Connection.class
 model\Property.class
 view\AccueilAdmin.class
@@ -12,6 +13,7 @@ view\AccueilCleaner.class
 view\AccueilProprietaire.class
 model\Proprietaire.class
 view\AccueilInvite.class
+controller\ControleurRechercheMission.class
 model\Mission.class
 model\GeocodingService.class
 model\HTMLfunction.class

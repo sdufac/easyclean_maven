@@ -12,8 +12,8 @@ import model.*;
 public class ControleurRechercheMission {
 
     private String dbName = "easy_clean";
-    private String login = "root";
-    private String password = "";
+    private String login = "toto";
+    private String password = "titi";
     // private String strUrl;
     SortedMap<Double, Mission> ResultMission = new TreeMap<>();
 

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.io.PrintWriter;
+import model.*;
 
 public abstract class HTMLfunction {
 
@@ -86,9 +87,11 @@ public abstract class HTMLfunction {
 		out.append("</head>");
 		out.append("<body>");
 		out.append("<div id='mission' style='flex: 2;width: 150vh'>");
-		out.append("<form name='result' id='result_search' style='width: 500px' action='/rechercheMission'>");
+		out.append(
+				"<form name='result' id='result_search' style='width: 700px' action='/rechercheMission  onsubmit='return onSubmitForm()'>");
 		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
-		out.append("<div>Adresse : <div><input type='text' name='address' id='address'></div></div>");
+		out.append(
+				"<div>Adresse : <div>rue :<input type='text' name='address' id='address'></div> <div>ville :<input type='text' name='city' id='city'></div><div>code postal :<input type='text' name='postalcode' id='postalcode'></div></div>");
 		out.append("<p>Kilomètres maximum :</p>");
 		out.append("<div>");
 		out.append("<div class='slider-container'>");
@@ -114,25 +117,48 @@ public abstract class HTMLfunction {
 		out.append("</div>");
 	}
 
-	public static void profilUser(PrintWriter out) {
+	public static void profilUser(PrintWriter out, Utilisateur cleaner) {
+		System.out.println("firstname:" + cleaner.getFirstName());
 		out.append("<div id='profilcontainer' style='flex: 1; border-right= 1;>");
 		out.append("<img src='src/main/webapp/WEB-INF/profil_picture/'>");
 		out.append("<br>");
+		out.append("<div>Nom : ").append(cleaner.getFirstName() + " " + cleaner.getSecondName());
+		out.append("</div>");
+		out.append("<div>Email : ").append(cleaner.getEmail());
+		out.append("</div>");
+		out.append("<div>Pseudo : ").append(cleaner.getUsername());
+		out.append("</div>");
+		out.append("<div>Age : ").append(String.valueOf(cleaner.getAge()));
+		out.append("</div>");
+		out.append("<div> Note : ").append(String.valueOf(cleaner.getGlobalGrade()));
+		out.append("</div>");
+		out.append("<div>Téléphone : ").append(String.valueOf(cleaner.getPhoneNumber()));
+		out.append("</div>");
 		out.append("<button id='logout'>Logout</button>");
 		out.append("<br>");
 		out.append("<button id='showProfil'>Voir profil</button>");
 		out.append("</div>");
 	}
 
-	public static String comboProprietaire(ArrayList<Property> tab){
+	protected abstract Object getPhoneNumber();
+
+	public static String comboProprietaire(ArrayList<Property> tab) {
 		String combo = "<select name=\"properties\" id=\"propties\">";
 
-		for(Property p: tab){
-			combo = combo+"<option value=\""+ p.getIdProperty() +"\">"+p.getAdress()+"</option>";
+		for (Property p : tab) {
+			combo = combo + "<option value=\"" + p.getIdProperty() + "\">" + p.getAdress() + "</option>";
 		}
 
 		combo = combo + "</select>";
 
 		return combo;
+	}
+
+	public static void afficheMission(PrintWriter out, ArrayList<Mission> tabm) {
+
+		out.append("<div class= missionfinded>");
+
+		out.append("</div>");
+
 	}
 }

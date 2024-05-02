@@ -14,10 +14,10 @@ import org.json.JSONObject;
 public abstract class GeocodingService {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/easyclean_v2?serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASS = "";
-    
-    DAOacces bdd = new DAOacces("easy_clean","root","");
+    private static final String USER = "toto";
+    private static final String PASS = "titi";
+
+    DAOacces bdd = new DAOacces("easy_clean", "root", "");
 
     public static JSONObject obtenirCoordonneesPropriete(String completeAddress) throws Exception {
         // Récupérer l'adresse complète de la base de données
@@ -62,18 +62,18 @@ public abstract class GeocodingService {
 
     public static String getAdressepropriete(int idPropriete) {
         String completeAddressPropriete = null;
-        DAOacces bdd = new DAOacces("easy_clean","root","");
-        try{
+        DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+        try {
             String strQuery = "SELECT adress, ville, code_postal FROM propriete WHERE propriete_id  = " + idPropriete;
             ResultSet rsAdress = bdd.getStLogin().executeQuery(strQuery);
 
-            while(rsAdress.next()) {
+            while (rsAdress.next()) {
                 String address = rsAdress.getString("adress");
                 String city = rsAdress.getString("ville");
                 String postalCode = rsAdress.getString("code_postal");
                 completeAddressPropriete = address + ", " + city + ", " + postalCode;
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
