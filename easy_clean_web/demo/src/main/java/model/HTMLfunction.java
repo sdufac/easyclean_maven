@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.io.PrintWriter;
-import model.*;
 
 public abstract class HTMLfunction {
 
@@ -87,28 +86,17 @@ public abstract class HTMLfunction {
 		out.append("</head>");
 		out.append("<body>");
 		out.append("<div id='mission' style='flex: 2;width: 150vh'>");
-		out.append(
-				"<form name='result' id='result_search' style='width: 700px' action='/rechercheMission  onsubmit='return onSubmitForm()'>");
 		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
 		out.append(
-				"<div>Adresse : <div>rue :<input type='text' name='address' id='address'></div> <div>ville :<input type='text' name='city' id='city'></div><div>code postal :<input type='text' name='postalcode' id='postalcode'></div></div>");
-		out.append("<p>Kilomètres maximum :</p>");
+				"<form name='address' method='POST' id='address' style='width: 700px' action='/rechercheMission'>");
+		out.append(
+				"<div>rue :<input type='text' name='' id='city'></div>"
+						+ "<div>ville :<input type='text' name='city' id='city'></div>"
+						+ "<div>code postal :<input type='text' name='postalcode' id='postalcode'></div>");
 		out.append("<div>");
+		out.append("<p>Kilomètres maximum :</p>");
 		out.append("<div class='slider-container'>");
-		out.append("<input type='range' min='0' max='100' value='0' class='slider' id='myRange'>");
-		out.append("</div>");
-		out.append("<div class='slider-labels'>");
-		out.append("<span class='slider-value'>0</span>");
-		out.append("<span class='slider-value'>5</span>");
-		out.append("<span class='slider-value'>10</span>");
-		out.append("<span class='slider-value'>15</span>");
-		out.append("<span class='slider-value'>20</span>");
-		out.append("<span class='slider-value'>30</span>");
-		out.append("<span class='slider-value'>50</span>");
-		out.append("<span class='slider-value'>75</span>");
-		out.append("<span class='slider-value'>100</span>");
-		out.append("</div>");
-		out.append("</div>");
+		out.append("<input type='number' name='maxDistance'>");
 		out.append("<div>");
 		out.append("<button id='searchMission'>Rechercher</button>");
 		out.append("</div>");
@@ -118,9 +106,9 @@ public abstract class HTMLfunction {
 	}
 
 	public static void profilUser(PrintWriter out, Utilisateur cleaner) {
-		System.out.println("firstname:" + cleaner.getFirstName());
-		out.append("<div id='profilcontainer' style='flex: 1; border-right= 1;>");
-		out.append("<img src='src/main/webapp/WEB-INF/profil_picture/'>");
+		out.append("<div id='profilcontainer' style='flex: 1; border-right= 1;'>");
+		out.append("<br>");
+		out.append("<img src='localhost:9090/profil_picture/a.jpg' alt='image_inch'>");
 		out.append("<br>");
 		out.append("<div>Nom : ").append(cleaner.getFirstName() + " " + cleaner.getSecondName());
 		out.append("</div>");
@@ -136,7 +124,9 @@ public abstract class HTMLfunction {
 		out.append("</div>");
 		out.append("<button id='logout'>Logout</button>");
 		out.append("<br>");
-		out.append("<button id='showProfil'>Voir profil</button>");
+		out.append("<form name='modifprofil' action='modifProfil'>");
+		out.append("<button id='showProfil' onAction='/modifProfil'> Voir profil</button>");
+		out.append("</form>");
 		out.append("</div>");
 	}
 
@@ -154,11 +144,85 @@ public abstract class HTMLfunction {
 		return combo;
 	}
 
-	public static void afficheMission(PrintWriter out, ArrayList<Mission> tabm) {
+	public static String[] modifProfil(PrintWriter out, Utilisateur user, ArrayList<Mission> mtab) {
+		String[] tabString;
+		tabString = new String[3];
 
-		out.append("<div class= missionfinded>");
+		String tabAvailable = "<table>";
+		String tabWaiting = "<table>";
+		String tabFinished = "<table>";
 
-		out.append("</div>");
+		int availableCount = 0;
+		int waitingCount = 0;
+		int finishedCount = 0;
+
+		for (Mission m : mtab) {
+			if (m.getStatut().equals("available")) {
+				tabAvailable = tabAvailable + "<tr>";
+				tabAvailable = tabAvailable + "<th>" + m.getAdress() + "</th>";
+				tabAvailable = tabAvailable + "<th>" + m.getDate() + "</th>";
+				tabAvailable = tabAvailable + "<th>" + m.getInstruction() + "</th>";
+				tabAvailable = tabAvailable + "</tr>";
+
+				availableCount++;
+			} else if (m.getStatut().equals("waiting")) {
+				tabWaiting = tabWaiting + "<tr>";
+				tabWaiting = tabWaiting + "<th>" + m.getAdress() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getDate() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getInstruction() + "</th>";
+				tabWaiting = tabWaiting + "</tr>";
+
+				waitingCount++;
+			} else if (m.getStatut().equals("finished")) {
+				tabFinished = tabFinished + "<tr>";
+				tabFinished = tabFinished + "<th>" + m.getAdress() + "</th>";
+				tabFinished = tabFinished + "<th>" + m.getDate() + "</th>";
+				tabFinished = tabFinished + "<th>" + m.getInstruction() + "</th>";
+				tabFinished = tabFinished + "</tr>";
+
+				finishedCount++;
+			}
+		}
+		tabAvailable = tabAvailable + "</table>";
+		tabWaiting = tabWaiting + "</table>";
+		tabFinished = tabFinished + "</table>";
+
+		if (availableCount == 0) {
+			tabAvailable = "Aucune mission en attente";
+		}
+		if (waitingCount == 0) {
+			tabWaiting = "Aucune mission en cours";
+		}
+		if (finishedCount == 0) {
+			tabFinished = "Aucune mission terminée";
+		}
+
+		tabString[0] = tabAvailable;
+		tabString[1] = tabWaiting;
+		tabString[2] = tabFinished;
+
+		return tabString;
+	}
+
+	public static String[] afficheMission(PrintWriter out, ArrayList<Mission> resultMission) {
+		out.append("<h1>Résultats de la recherche de missions</h1>");
+		out.append("<table border='1'>");
+		out.append("<tr>");
+		out.append("<th>Date</th>");
+		out.append("<th>Adresse</th>");
+		out.append("<th>Instruction</th>");
+		out.append("<th>Instruction</th>");
+		out.append("</tr>");
+		for (Mission mission : resultMission) {
+			out.append("<tr>");
+			out.append("<td>").append(mission.getDate()).append("</td>");
+			out.append("<td>").append(mission.getAdress()).append("</td>");
+			out.append("<td>").append(mission.getInstruction()).append("</td>");
+			out.append("</tr>");
+		}
+		out.append("</table>");
+
+		return null;
 
 	}
 }

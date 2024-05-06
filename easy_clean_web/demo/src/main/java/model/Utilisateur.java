@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.sql.*;
@@ -25,6 +26,7 @@ public class Utilisateur {
 	private String dateOfBirth;
 	private Date dateOfCreation;
 	private HashMap<Float, String> comment;
+	ArrayList<Mission> missions;
 	float globalGrade;
 
 	public Utilisateur(String username, String firstName, String secondName, int age, String password,
@@ -41,6 +43,7 @@ public class Utilisateur {
 		this.comment = new HashMap<Float, String>();
 		this.globalGrade = globalGrade;
 		this.description = description;
+		this.missions = new ArrayList<Mission>();
 	}
 
 	public int getId() {
@@ -198,5 +201,13 @@ public class Utilisateur {
 		}
 		moy = moy / this.comment.size();
 		this.globalGrade = moy;
+	}
+
+	public ArrayList<Mission> getMissions() {
+		return missions;
+	}
+
+	public void setMission(Mission mission) {
+		this.missions.add(mission);
 	}
 }

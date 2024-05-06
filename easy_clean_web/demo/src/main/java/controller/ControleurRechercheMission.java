@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import model.*;

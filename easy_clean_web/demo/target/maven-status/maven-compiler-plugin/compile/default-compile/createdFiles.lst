@@ -1,10 +1,10 @@
 model\Cleaner.class
 model\DAOacces.class
 model\Litige.class
+view\ModifProfil.class
 model\Utilisateur.class
 controller\ControllerConnection.class
 controller\ControllerInvite.class
-view\AfficherMission.class
 view\Connection.class
 model\Property.class
 view\AccueilAdmin.class
