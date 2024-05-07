@@ -1,0 +1,16 @@
+127.0.0.1 - - [07/May/2024:09:04:48 +0200] "GET / HTTP/1.1" 404 - http-bio-9090-exec-1 0
+127.0.0.1 - - [07/May/2024:09:04:52 +0200] "GET /easy_clean_web/ HTTP/1.1" 200 57 http-bio-9090-exec-3 461
+127.0.0.1 - - [07/May/2024:09:05:01 +0200] "GET /easy_clean_web/invite HTTP/1.1" 500 157 http-bio-9090-exec-3 319
+127.0.0.1 - - [07/May/2024:09:05:09 +0200] "GET /easy_clean_web/invite HTTP/1.1" 500 157 http-bio-9090-exec-5 11
+127.0.0.1 - - [07/May/2024:09:05:14 +0200] "GET /easy_clean_web/cleaner HTTP/1.1" 200 566 http-bio-9090-exec-4 2
+127.0.0.1 - - [07/May/2024:09:05:15 +0200] "GET /easy_clean_web/src/main/webapp/WEB-INF/cssApp.css HTTP/1.1" 404 1085 http-bio-9090-exec-4 7
+127.0.0.1 - - [07/May/2024:09:05:15 +0200] "GET /easy_clean_web/src/main/webapp/WEB-INF/jsApp.js HTTP/1.1" 404 1083 http-bio-9090-exec-4 2
+127.0.0.1 - - [07/May/2024:09:05:19 +0200] "GET /easy_clean_web/proprietaire HTTP/1.1" 500 1554 http-bio-9090-exec-4 10
+127.0.0.1 - - [07/May/2024:09:05:25 +0200] "GET /easy_clean_web/invite HTTP/1.1" 500 157 http-bio-9090-exec-9 10
+127.0.0.1 - - [07/May/2024:09:05:39 +0200] "GET /easy_clean_web/invite HTTP/1.1" 500 157 http-bio-9090-exec-10 9
+127.0.0.1 - - [07/May/2024:09:05:40 +0200] "GET /easy_clean_web/invite HTTP/1.1" 200 1770 http-bio-9090-exec-1 143
+127.0.0.1 - - [07/May/2024:09:05:42 +0200] "GET /easy_clean_web/connection HTTP/1.1" 200 435 http-bio-9090-exec-1 1
+127.0.0.1 - - [07/May/2024:09:05:46 +0200] "POST /easy_clean_web/controllerconnection HTTP/1.1" 200 4986 http-bio-9090-exec-1 52
+127.0.0.1 - - [07/May/2024:09:05:47 +0200] "GET /easy_clean_web/image/profile_picture/sdufac.png HTTP/1.1" 404 1083 http-bio-9090-exec-1 0
+127.0.0.1 - - [07/May/2024:09:06:11 +0200] "POST /easy_clean_web/controllerconnection HTTP/1.1" 200 1269 http-bio-9090-exec-1 21
+127.0.0.1 - - [07/May/2024:09:06:11 +0200] "GET /easy_clean_web/image/profile_picture/ouai.png HTTP/1.1" 200 1934 http-bio-9090-exec-1 4
