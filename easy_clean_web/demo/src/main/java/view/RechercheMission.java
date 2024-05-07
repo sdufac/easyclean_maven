@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import model.Cleaner;
 import java.util.SortedMap;
@@ -19,20 +20,28 @@ import model.Mission;
 public class RechercheMission extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        String street = request.getParameter("street");
+        String city = request.getParameter("city");
+        String postalCode = request.getParameter("postalcode");
+        String completeAddress = street + ", " + city + ", " + postalCode;
+        Double maxDistance;
 
-        String address = request.getParameter("address");
-        double maxDistance = Double.parseDouble(request.getParameter("maxDistance"));
-        Cleaner user = (Cleaner) session.getAttribute("user");
+        try (PrintWriter out = response.getWriter()) {
+            response.setContentType("text/html;charset=UTF-8");
+            HttpSession session = request.getSession();
 
-        // Effectuer la recherche de missions dans la zone maximale définie
-        ControleurRechercheMission controleur = new ControleurRechercheMission(user, address, maxDistance);
-        SortedMap<Double, Mission> resultMission = controleur.getResultMission();
+            String address = request.getParameter("address");
+            double maxDistance = Double.parseDouble(request.getParameter("maxDistance"));
+            Cleaner user = (Cleaner) session.getAttribute("user");
 
-        // Enregistrer les résultats dans la session pour les utiliser dans la vue
-        session.setAttribute("resultMission", resultMission);
+            ControleurRechercheMission controleur = new ControleurRechercheMission(user, completeAddress, maxDistance));
+            SortedMap<Double, Mission> resultMission = controleur.getResultMission();
+
+            session.setAttribute("resultMission", resultMission);
+            out.print(resultMission);
+        }
     }
 }

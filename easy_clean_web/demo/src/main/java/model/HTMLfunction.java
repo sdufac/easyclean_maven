@@ -80,54 +80,68 @@ public abstract class HTMLfunction {
 	}
 
 	public static void searchMission(PrintWriter out) {
-		out.append("<head>");
-		out.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-		out.append("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
-		out.append("</head>");
-		out.append("<body>");
-		out.append("<div id='mission' style='flex: 2;width: 150vh'>");
-		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
-		out.append(
-				"<form name='address' method='POST' id='address' style='width: 700px' action='/rechercheMission'>");
-		out.append(
+		out.print("<head>");
+		out.print("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+		out.print("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
+		out.print("</head>");
+		out.print("<body>");
+		out.print("<div id='mission' style='flex: 2;width: 150vh'>");
+		out.print("<h3>Recherchez vôtre prochaine mission</h3>");
+		out.print(
+				"<form name='adressCleaner' method='POST' id='address' style='width: 700px' action='rechercheMission'>");
+		out.print(
 				"<div>rue :<input type='text' name='' id='city'></div>"
 						+ "<div>ville :<input type='text' name='city' id='city'></div>"
 						+ "<div>code postal :<input type='text' name='postalcode' id='postalcode'></div>");
-		out.append("<div>");
-		out.append("<p>Kilomètres maximum :</p>");
-		out.append("<div class='slider-container'>");
-		out.append("<input type='number' name='maxDistance'>");
-		out.append("<div>");
-		out.append("<button id='searchMission'>Rechercher</button>");
-		out.append("</div>");
-		out.append("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
-		out.append("</form>");
-		out.append("</div>");
+		out.print("<div>");
+		out.print("<p>Kilomètres maximum :</p>");
+		out.print("<div class='slider-container'>");
+		out.print("<input type='number' name='maxDistance' step=\\\"0.1\\\" required>");
+		out.print("<div>");
+		out.print("<input type='submit' id='searchMission' value='rechercher'>");
+		out.print("</div>");
+		out.print("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
+		out.print("</form>");
+		out.print("</div>");
+		out.print("</body>"
+				+ "</html>");
+
 	}
 
 	public static void profilUser(PrintWriter out, Utilisateur cleaner) {
-		out.append("<div id='profilcontainer' style='flex: 1; border-right= 1;'>");
-		out.append("<br>");
-		out.append("<img src='localhost:9090/profil_picture/a.jpg' alt='image_inch'>");
-		out.append("<br>");
-		out.append("<div>Nom : ").append(cleaner.getFirstName() + " " + cleaner.getSecondName());
-		out.append("</div>");
-		out.append("<div>Email : ").append(cleaner.getEmail());
-		out.append("</div>");
-		out.append("<div>Pseudo : ").append(cleaner.getUsername());
-		out.append("</div>");
-		out.append("<div>Age : ").append(String.valueOf(cleaner.getAge()));
-		out.append("</div>");
-		out.append("<div> Note : ").append(String.valueOf(cleaner.getGlobalGrade()));
-		out.append("</div>");
-		out.append("<div>Téléphone : ").append(String.valueOf(cleaner.getPhoneNumber()));
-		out.append("</div>");
-		out.append("<button id='logout'>Logout</button>");
-		out.append("<br>");
-		out.append("<form name='modifprofil' action='modifProfil'>");
-		out.append("<button id='showProfil' onAction='/modifProfil'> Voir profil</button>");
-		out.append("</form>");
-		out.append("</div>");
+		out.print("<head>");
+		out.print("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+		out.print("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
+		out.print("</head>");
+		out.print("<body>");
+		out.print("<div id='profilcontainer' style='flex: 1; border-right= 1;'>");
+		out.print("<br>");
+		out.print("<img src='localhost:9090/profil_picture/a.jpg' alt='image_inch'>");
+		out.print("<br>");
+		out.print("<div>Nom : ");
+		out.print(cleaner.getFirstName() + " " + cleaner.getSecondName());
+		out.print("</div>");
+		out.print("<div>Email : ");
+		out.print(cleaner.getEmail());
+		out.print("</div>");
+		out.print("<div>Pseudo : ");
+		out.print(cleaner.getUsername());
+		out.print("</div>");
+		out.print("<div>Age : ");
+		out.print(String.valueOf(cleaner.getAge()));
+		out.print("</div>");
+		out.print("<div> Note : ");
+		out.print(String.valueOf(cleaner.getGlobalGrade()));
+		out.print("</div>");
+		out.print("<div>Téléphone : ");
+		out.print(String.valueOf(cleaner.getPhoneNumber()));
+		out.print("</div>");
+		out.print("<button id='logout'>Logout</button>");
+		out.print("<br>");
+		out.print("<form name='modifprofil' action='ModifProfil'>");
+		out.print("<input type='submit' id='showProfil' value='voir profil'>");
+		out.print("</form>");
+		out.print("</div>");
 	}
 
 	protected abstract Object getPhoneNumber();
@@ -204,25 +218,31 @@ public abstract class HTMLfunction {
 		return tabString;
 	}
 
-	public static String[] afficheMission(PrintWriter out, ArrayList<Mission> resultMission) {
-		out.append("<h1>Résultats de la recherche de missions</h1>");
-		out.append("<table border='1'>");
-		out.append("<tr>");
-		out.append("<th>Date</th>");
-		out.append("<th>Adresse</th>");
-		out.append("<th>Instruction</th>");
-		out.append("<th>Instruction</th>");
-		out.append("</tr>");
+	public static ArrayList<Mission> afficheMission(PrintWriter out, ArrayList<Mission> resultMission) {
+		out.print("<h1>Résultats de la recherche de missions</h1>");
+		out.print("<table border='1'>");
+		out.print("<tr>");
+		out.print("<th>Date</th>");
+		out.print("<th>Adresse</th>");
+		out.print("<th>Instruction</th>");
+		out.print("<th>Instruction</th>");
+		out.print("</tr>");
 		for (Mission mission : resultMission) {
-			out.append("<tr>");
-			out.append("<td>").append(mission.getDate()).append("</td>");
-			out.append("<td>").append(mission.getAdress()).append("</td>");
-			out.append("<td>").append(mission.getInstruction()).append("</td>");
-			out.append("</tr>");
+			out.print("<tr>");
+			out.print("<td>");
+			out.print(mission.getDate());
+			out.print("</td>");
+			out.print("<td>");
+			out.print(mission.getAdress());
+			out.print("</td>");
+			out.print("<td>");
+			out.print(mission.getInstruction());
+			out.print("</td>");
+			out.print("</tr>");
 		}
-		out.append("</table>");
+		out.print("</table>");
 
-		return null;
-
+		return resultMission;
 	}
+
 }

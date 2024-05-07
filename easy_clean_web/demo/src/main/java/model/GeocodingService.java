@@ -17,11 +17,11 @@ public abstract class GeocodingService {
     private static final String USER = "toto";
     private static final String PASS = "titi";
 
-    DAOacces bdd = new DAOacces("easy_clean", "root", "");
+    DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
 
     public static JSONObject obtenirCoordonneesPropriete(String completeAddress) throws Exception {
         // Récupérer l'adresse complète de la base de données
-
+        System.out.println("adresse input :" + completeAddress);
         if (completeAddress != null) {
             String url = "https://nominatim.openstreetmap.org/search?q=" + completeAddress.replace(" ", "+")
                     + "&format=json&limit=1";
@@ -73,6 +73,7 @@ public abstract class GeocodingService {
                 String postalCode = rsAdress.getString("code_postal");
                 completeAddressPropriete = address + ", " + city + ", " + postalCode;
             }
+            System.out.println(completeAddressPropriete);
 
         } catch (Exception e) {
             e.printStackTrace();
