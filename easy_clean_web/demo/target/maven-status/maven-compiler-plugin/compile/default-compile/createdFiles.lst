@@ -1,6 +1,7 @@
 model\Cleaner.class
 model\DAOacces.class
 model\Litige.class
+view\ModifProfil.class
 model\Utilisateur.class
 controller\ControllerConnection.class
 controller\ControllerInvite.class
@@ -12,6 +13,7 @@ view\AccueilCleaner.class
 view\AccueilProprietaire.class
 model\Proprietaire.class
 view\AccueilInvite.class
+controller\ControleurRechercheMission.class
 model\Mission.class
 model\GeocodingService.class
 model\HTMLfunction.class

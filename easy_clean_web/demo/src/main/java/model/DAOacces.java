@@ -13,29 +13,30 @@ public class DAOacces {
 	private String strUrl;
 	private Connection connection;
 	private Statement stLogin;
-	
-	
+
 	public DAOacces(String dbName, String login, String password) {
-		this.strClassName ="com.mysql.cj.jdbc.Driver";
+		this.strClassName = "com.mysql.cj.jdbc.Driver";
 		this.dbName = dbName;
 		this.login = login;
 		this.password = password;
-		this.strUrl ="jdbc:mysql://127.0.0.1:3306/" +  dbName + "?useSSL=false&serverTimezone=Europe/Paris";
-		
+		this.strUrl = "jdbc:mysql://127.0.0.1:3307/" + dbName + "?useSSL=false&serverTimezone=Europe/Paris";
+
 		try {
+			System.out.println("Connection à la BDD " + dbName);
+			System.out.println("login: " + login + " pwd: " + password + "fin");
 			Class.forName(this.strClassName);
-			this.connection=DriverManager.getConnection(this.strUrl, this.login, this.password);
-			System.out.println("Connection à la BDD "+dbName+" réussie");
-			
+			this.connection = DriverManager.getConnection(this.strUrl, this.login, this.password);
+			System.out.println("Connection à la BDD " + dbName + " réussie");
 			this.stLogin = this.connection.createStatement();
-		}
-		catch(ClassNotFoundException e) {  
-			System.err.println("Driver non chargé !");  e.printStackTrace();
-		} catch(SQLException e) {
-			System.err.println("Erreur");  e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.err.println("Driver non chargé !");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.err.println("Erreur dao");
+			e.printStackTrace();
 		}
 	}
-	
+
 	public String getStrClassName() {
 		return strClassName;
 	}
@@ -51,11 +52,12 @@ public class DAOacces {
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
-	
+
 	public Statement getStLogin() {
+
 		return stLogin;
 	}
-	
+
 	public String getLogin() {
 		return login;
 	}
@@ -81,6 +83,16 @@ public class DAOacces {
 	}
 
 	public Connection getConnection() {
+		try {
+			if (this.connection == null || this.connection.isClosed()) {
+				// Reconnecter si nécessaire
+				this.connection = DriverManager.getConnection(this.strUrl, this.login, this.password);
+				System.out.println("Reconnexion à la BDD " + dbName + " réussie");
+			}
+		} catch (SQLException e) {
+			System.err.println("Erreur lors de la reconnexion à la base de données");
+			e.printStackTrace();
+		}
 		return this.connection;
 	}
 
@@ -91,9 +103,9 @@ public class DAOacces {
 	public void disconnect() {
 		try {
 			this.connection.close();
-		}
-		catch(SQLException e) {
-			System.err.println("Erreur");  e.printStackTrace();
+		} catch (SQLException e) {
+			System.err.println("Erreur");
+			e.printStackTrace();
 		}
 	}
 }
