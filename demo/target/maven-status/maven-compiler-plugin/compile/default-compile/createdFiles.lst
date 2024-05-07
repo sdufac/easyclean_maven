@@ -30,6 +30,7 @@ view\ProfilUser.class
 controller\ControllerInfoMission.class
 model\Proprietaire.class
 model\Postulation.class
+controller\ControllerCreation.class
 model\Mission.class
 controller\ControllerProfilUser.class
 model\HTMLfunction.class

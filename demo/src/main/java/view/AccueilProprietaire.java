@@ -1,16 +1,19 @@
 package view;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
 
 import model.HTMLfunction;
 import model.Proprietaire;
-
-import java.io.IOException;
 
 /**
  * Servlet implementation class AccueilProprietaire
@@ -36,21 +39,37 @@ public class AccueilProprietaire extends HttpServlet {
 		Proprietaire user = (Proprietaire)session.getAttribute("user");
 		String[] tabMissions = HTMLfunction.proprioTabMission(user.getMissions(),user.getPostulation(),user);
 
-		response.getWriter().append("<h2>Accueil Proprietaire</h2><hr>"
-		+"<button type=\"button\" onclick=\"location.href='addproperty'\"/>Enregistrer une propriétée</button> <button type=\"button\" onclick=\"location.href='profil'\"/>Voir Profil</button><hr>"
-		+"<div id=\"mission\"><h3>Vos missions en attente</h3>"
-		+ tabMissions[0]
-		+"<hr>"
-		+"<h3>Vos missions en cours</h3>"
-		+ tabMissions[1]
-		+"<hr>"
-		+"<h3>Votre historique de missions</h3>"
-		+ tabMissions[2]
-		+"</div>"
-		+"<div id=\"form\">"
-		+"<hr>"
-		+"<h3>Poster une mission</h3>");
-		HTMLfunction.formMission(user, response.getWriter());
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+
+		HTMLfunction.head(response.getWriter());
+		response.getWriter().append(
+			"<body>"
+			+"<h2>Accueil Proprietaire</h2>"
+			+ user.getSecondName() + " " + user.getFirstName()+"<br>"
+			+"<img src=\"./image/profile_picture/"+user.getUsername()+".png\" width=\"100\" height=\"100\">"
+			+"<hr>"
+			+"<button type=\"button\" onclick=\"location.href='addproperty'\">Enregistrer une propriétée</button>"
+			+"<button type=\"button\" onclick=\"location.href='profil'\">Voir Profil</button>"
+			+"<hr>"
+			+"<div id=\"mission\">"
+			+"	<h3>Vos missions en attente</h3>"
+			+	tabMissions[0]
+			+"	<hr>"
+			+"	<h3>Vos missions en cours</h3>"
+			+ 	tabMissions[1]
+			+"	<hr>"
+			+"	<h3>Votre historique de missions</h3>"
+			+ 	tabMissions[2]
+			+"</div>"
+			+"<div id=\"form\">"
+			+"	<hr>"
+			+"	<h3>Poster une mission</h3>");
+			HTMLfunction.formMission(user, response.getWriter());
+			response.getWriter().append(
+			"</div>"
+			+"</body>"
+			+"</html>");
 	}
 
 	/**
@@ -60,5 +79,4 @@ public class AccueilProprietaire extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

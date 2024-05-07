@@ -109,11 +109,14 @@ public class ControllerConnection extends HttpServlet {
 				}
 				else if(rsLogin.getString("role").equals("Proprietaire")) {			
 					
+					
+
 					//Creation du proprietaire
 					Proprietaire user = new Proprietaire(rsLogin.getString("first_name"), rsLogin.getString("second_name"),rsLogin.getString("username"),rsLogin.getString("mail"), rsLogin.getString("password"),rsLogin.getInt("age"),  rsLogin.getString("bio"), rsLogin.getInt("phone_number"),rsLogin.getString("date_of_birth"),rsLogin.getFloat("note"));
 					user.setDateOfCreation(rsLogin.getDate("date_creation"));
 					user.setId(rsLogin.getInt(1));
 					
+
 					//Creation des propriete
 					String strQuery2= "SELECT * FROM propriete WHERE proprietaire_id = "+user.getId()+";";
 					ResultSet rsLogin2 = bdd.getStLogin().executeQuery(strQuery2);
@@ -124,6 +127,7 @@ public class ControllerConnection extends HttpServlet {
 						user.setProperties(new Property(rsLogin2.getInt(1),adress,rsLogin2.getInt(3),rsLogin2.getInt(7)));
 					}
 					
+					System.out.println("//AFTER CREATING PROPERTY");
 					//Creation des missions
 					Statement proprietee = bdd.getConnection().createStatement();
 					strQuery ="SELECT * FROM mission JOIN propriete ON id_propriete=propriete_id JOIN statut_mission ON statut=statut_id LEFT JOIN users ON id_cleaner=id_user WHERE id_proprietaire =" +user.getId();
@@ -145,33 +149,40 @@ public class ControllerConnection extends HttpServlet {
 						}
 					}
 
+					System.out.println("//AFTER CREATING MISSION");
+
 					//Creation des postulations
-					String strPostulation = "SELECT * FROM postulation JOIN users ON idCleaner=id_user WHERE idMission =";
-					int count = 1;
+					if(user.getMissions().size()>0){
+						
+						String strPostulation = "SELECT * FROM postulation JOIN users ON idCleaner=id_user WHERE idMission =";
+						int count = 1;
 
-					for(Mission m: user.getMissions()){
-						if(count<user.getMissions().size()){
-							strPostulation = strPostulation + m.getIdMission()+" OR idMission =";
-						}
-						else if(count == user.getMissions().size()){
-							strPostulation = strPostulation + m.getIdMission();
-						}
-						count++;
-					}
-					ResultSet rsPostulation = proprietee.executeQuery(strPostulation);
-
-					while (rsPostulation.next()) {
-						Mission pMission = null;
 						for(Mission m: user.getMissions()){
-							if(m.getIdMission() == rsPostulation.getInt("idMission")){
-								pMission = m;
+							if(count<user.getMissions().size() && user.getMissions().size()>0){
+								strPostulation = strPostulation + m.getIdMission()+" OR idMission =";
 							}
+							else if(count == user.getMissions().size() && user.getMissions().size()>0){
+								strPostulation = strPostulation + m.getIdMission();
+							}
+							count++;
 						}
-						Cleaner cleaner = new Cleaner(rsPostulation.getString("first_name"),rsPostulation.getString("second_name"),rsPostulation.getString("username"),rsPostulation.getString("mail"),rsPostulation.getString("password"),rsPostulation.getInt("age"),rsPostulation.getString("bio"),rsPostulation.getInt("phone_number"),rsPostulation.getString("date_of_birth"),rsPostulation.getFloat("note"),rsPostulation.getInt("nb_mission"),rsPostulation.getInt("perimeter"),rsPostulation.getInt("tarif_horaire"));
-						cleaner.setId(rsPostulation.getInt("id_user"));
-						Postulation p = new Postulation(rsPostulation.getInt("idPostulation"), pMission, cleaner, rsPostulation.getFloat("horaireStart"), rsPostulation.getFloat("horaireEnd"), rsPostulation.getFloat("salaireCleaner"));
-						user.setPostulation(p);
+						
+						ResultSet rsPostulation = proprietee.executeQuery(strPostulation);
+
+						while (rsPostulation.next()) {
+							Mission pMission = null;
+							for(Mission m: user.getMissions()){
+								if(m.getIdMission() == rsPostulation.getInt("idMission")){
+									pMission = m;
+								}
+							}
+							Cleaner cleaner = new Cleaner(rsPostulation.getString("first_name"),rsPostulation.getString("second_name"),rsPostulation.getString("username"),rsPostulation.getString("mail"),rsPostulation.getString("password"),rsPostulation.getInt("age"),rsPostulation.getString("bio"),rsPostulation.getInt("phone_number"),rsPostulation.getString("date_of_birth"),rsPostulation.getFloat("note"),rsPostulation.getInt("nb_mission"),rsPostulation.getInt("perimeter"),rsPostulation.getInt("tarif_horaire"));
+							cleaner.setId(rsPostulation.getInt("id_user"));
+							Postulation p = new Postulation(rsPostulation.getInt("idPostulation"), pMission, cleaner, rsPostulation.getFloat("horaireStart"), rsPostulation.getFloat("horaireEnd"), rsPostulation.getFloat("salaireCleaner"));
+							user.setPostulation(p);
+						}
 					}
+					System.out.println("//AFTER CREATING POSTULATION");
 
 					//Creation des commentaires
 					Statement comment = bdd.getConnection().createStatement();
@@ -182,6 +193,8 @@ public class ControllerConnection extends HttpServlet {
 						user.setComment(rsComment.getFloat("note"), rsComment.getString("commentaire"));
 					}
 					user.getMoy();
+
+					System.out.println("//AFTER CREATING COMMENT");
 
 					//Set litiges
 					Statement stLitige = bdd.getConnection().createStatement();
@@ -194,6 +207,8 @@ public class ControllerConnection extends HttpServlet {
 						Litige l = new Litige(litigec,rsLitige.getString("text_litige"),rsLitige.getString("image1"),rsLitige.getString("image2"),rsLitige.getString("image3"),missionl);
 						user.setLitiges(l);
 					}
+
+					System.out.println("//AFTER CREATING LITIGE");
 
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
@@ -274,14 +289,15 @@ public class ControllerConnection extends HttpServlet {
 				
 				getServletContext().getRequestDispatcher("/admin").forward(request,response);
 			}
-			}
+			
+		}
 			bdd.disconnect();
 		}
 		catch(SQLException e) {
-			System.out.println("Ici");
 			System.err.println("Erreur");  e.printStackTrace();
 		}
 		if(isFailed) {
+			getServletContext().getRequestDispatcher("/connection").forward(request,response);
 			System.out.println("Connction échoué");
 		}
 	}

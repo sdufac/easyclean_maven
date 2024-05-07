@@ -1,12 +1,20 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public abstract class HTMLfunction {
 
+	public static void head(PrintWriter out){
+		out.append("<!DOCTYPE html>"
+            + "<html lang='fr'>"
+            + "<head>"
+            + 	"<meta charset='UTF-8'>"
+            + 	"<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+            + "<title> " + "title" + "</title>"
+            + "</head>");
+	}
+	
 	public static String tabMission(ArrayList<Mission> mtab) {
 		String html = "<table>";
 		for (Mission m : mtab) {
@@ -139,12 +147,6 @@ public abstract class HTMLfunction {
 	}
 
 	public static void formMission(Proprietaire user, PrintWriter out){
-		out.append("<head>");
-		out.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-		out.append("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
-		out.append("</head>");
-		out.append("<body>");
-
 		out.append("<form action=\"controllerproprietaire\" method=\"POST\" enctype=\"application/x-www-form-urlencoded\">");
 		out.append("Propriétée<br>");
 
@@ -157,7 +159,7 @@ public abstract class HTMLfunction {
 		out.append("Instruction<br>");
 		out.append("<input type=\"text\" name=\"instruction\" size=\"100\"/><br>");
 		out.append("Date de la mission<br>");
-		out.append("<input type=\"date\" id=\"date\" name=\"mission_date\" value=\"2024-04-25 min=\"2024-04-25\" max=\"2025-12-31\"><br>");
+		out.append("<input type=\"date\" id=\"date\" name=\"mission_date\" value=\"2024-04-25\" min=\"2024-04-25\" max=\"2025-12-31\"><br>");
 		out.append("Plage horraire de la mission<br>");
 		out.append("<input type=\"text\" name=\"plageStart\" size=\"2\"/>");
 		out.append("<input type=\"text\" name=\"plageEnd\" size=\"2\"/><br>");
@@ -166,8 +168,7 @@ public abstract class HTMLfunction {
 		//out.append("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
 
 		out.append("<br><input type=\"submit\" value=\"poster\">");
-		out.append("</form");
-		out.append("</body>");
+		out.append("</form>");
 	}
 
 	public static void vueMission(Mission m,PrintWriter out){
@@ -183,5 +184,9 @@ public abstract class HTMLfunction {
 		}else if(m.getStatut().equals("available")){
 			out.append("<br><form action=\"annulermission\" method=\"post\"><input type=\"hidden\" name=\"idmission\" value=\""+m.getIdMission()+"\"/><input type=\"submit\" value=\"Annuler la mission\"/></form>");
 		}
+	}
+
+	public static void afficherImage(String path,PrintWriter out){
+		out.append("<img src=\""+path+"\" alt=\"image\"/>");
 	}
 }

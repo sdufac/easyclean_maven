@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Servlet implementation class AccueilInvite
  */
-@WebServlet(name = "AccueilInvite" , urlPatterns = {"/"})
+@WebServlet(name = "AccueilInvite" , urlPatterns = {"/invite"})
 public class AccueilInvite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,20 +26,17 @@ public class AccueilInvite extends HttpServlet {
     public AccueilInvite() {
         // TODO Auto-generated constructor stub
     }
-
-    public void connection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		getServletContext().getRequestDispatcher("/connection").forward(request,response);
-	}
-	
-	public void createAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		getServletContext().getRequestDispatcher("/createaccount").forward(request,response);
-	}
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Mission> missionTab = new ArrayList<Mission>();
+
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+
+		HTMLfunction.head(response.getWriter());
 		DAOacces bdd = new DAOacces("easy_clean","root","");
 		System.out.println(bdd.getDbName());
 		try {
@@ -58,8 +55,9 @@ public class AccueilInvite extends HttpServlet {
 		}
 		
 		// TODO Auto-generated method stub
-		response.getWriter().append("<h2>Accueil Invité</h2><button type=\"button\" onclick=\"location.href='connection'\"/>Se connecter</button> <button type=\"button\" onclick=\"location.href='createaccount'\"/>Créer un compte</button><hr>");
+		response.getWriter().append("<body><h2>Accueil Invité</h2><button type=\"button\" onclick=\"location.href='connection'\"/>Se connecter</button> <button type=\"button\" onclick=\"location.href='createaccount'\"/>Créer un compte</button><hr>");
 		response.getWriter().append(HTMLfunction.tabMission(missionTab));
+		response.getWriter().append("</body></html>");
 	}
 
 	/**

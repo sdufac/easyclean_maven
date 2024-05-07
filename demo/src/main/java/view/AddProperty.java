@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.HTMLfunction;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -30,8 +33,14 @@ public class AddProperty extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+
+		HTMLfunction.head(response.getWriter());
+
 		PrintWriter out = response.getWriter();
-		out.append("<h2>Enregistrer une nouvelle propriétée</h2>"
+		out.append("<body><h2>Enregistrer une nouvelle propriétée</h2>"
 		+ "<hr>"
 		+ "<form action=\"controlleraddproperty\" method=\"POST\">"
 		+ "<br>Adresse: <input type=\"text\" name=\"adress\" size=\"50\"/>"
@@ -40,7 +49,8 @@ public class AddProperty extends HttpServlet {
 		+ "<br>Digicode (facultatif): <input type=\"text\" name=\"digicode\" size=\"10\"/>"
 		+ "<br>Surface: <input type=\"text\" name=\"surface\" size=\"10\"/>m²"
 		+ "<br><input type=\"submit\" value=\"Enregistrer\">"
-		+ "</form>");
+		+ "</form>"
+		+ "</body></html>");
 	}
 
 	/**

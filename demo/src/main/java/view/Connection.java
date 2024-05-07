@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.HTMLfunction;
+
 import java.io.IOException;
 
 /**
@@ -29,13 +32,15 @@ public class Connection extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().append("<h2>Connection</h2><hr>"
+		HTMLfunction.head(response.getWriter());
+		response.getWriter().append("<body><h2>Connection</h2><hr>"
 				+ "<form action=\"controllerconnection\" method=\"POST\" enctype=\"application/x-www-form-urlencoded\">"
 				+ "Login <input type=\"text\" name=\"login\">"
 				+ "Mot de passe <input type=\"password\" name=\"password\">"
 				+ "<br><input type=\"submit\" value=\"Connection\">"
-				+ "</form>");
+				+ "</form></body></html>");
 
 	}
 

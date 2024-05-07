@@ -65,10 +65,10 @@ public class ControllerLitige extends HttpServlet {
         InputStream file1 = request.getPart("image1").getInputStream();
         InputStream file2 = request.getPart("image2").getInputStream();
         InputStream file3 = request.getPart("image3").getInputStream();
-            
-        Files.copy(file1, new File("C:\\Users\\greta.2021-PQP-SIO10\\projects\\java\\easy_clean_maven\\demo\\src\\main\\webapp\\WEB-INF\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_1.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(file2, new File("C:\\Users\\greta.2021-PQP-SIO10\\projects\\java\\easy_clean_maven\\demo\\src\\main\\webapp\\WEB-INF\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_2.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(file3, new File("C:\\Users\\greta.2021-PQP-SIO10\\projects\\java\\easy_clean_maven\\demo\\src\\main\\webapp\\WEB-INF\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_3.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
+		
+        Files.copy(file1, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_1.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(file2, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_2.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(file3, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_3.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
 
         //Litige en bdd
         Litige l = new Litige(m.getCleaner(),request.getParameter("text"),user.getId()+"_"+m.getIdMission()+"_1.png",user.getId()+"_"+m.getIdMission()+"_2.png",user.getId()+"_"+m.getIdMission()+"_3.png",m);
