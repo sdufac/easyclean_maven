@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:23:20 +0200] "POST /easy_clean_web/afficherMission HTTP/1.1" 200 20 http-bio-9090-exec-10 291
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:49:17 +0200] "POST /easy_clean_web/controllerconnection HTTP/1.1" 200 1399 http-bio-9090-exec-1 852
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:49:17 +0200] "GET /easy_clean_web/src/main/webapp/WEB-INF/cssApp.css HTTP/1.1" 200 487 http-bio-9090-exec-1 21
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:49:17 +0200] "GET /easy_clean_web/src/main/webapp/WEB-INF/jsApp.js HTTP/1.1" 200 487 http-bio-9090-exec-2 26
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:49:18 +0200] "GET /favicon.ico HTTP/1.1" 404 - http-bio-9090-exec-2 0
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:49:28 +0200] "POST /easy_clean_web/rechercheMission HTTP/1.1" 200 650 http-bio-9090-exec-2 4435
+0:0:0:0:0:0:0:1 - - [12/May/2024:10:49:38 +0200] "POST /easy_clean_web/afficherMission HTTP/1.1" 200 - http-bio-9090-exec-8 78
+0:0:0:0:0:0:0:1 - - [12/May/2024:23:45:26 +0200] "GET /favicon.ico HTTP/1.1" 404 - http-bio-9090-exec-10 0
+0:0:0:0:0:0:0:1 - - [12/May/2024:23:45:27 +0200] "POST /easy_clean_web/afficherMission HTTP/1.1" 200 - http-bio-9090-exec-4 204

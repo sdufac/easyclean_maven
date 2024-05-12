@@ -21,7 +21,6 @@ public abstract class GeocodingService {
 
     public static JSONObject obtenirCoordonneesPropriete(String completeAddress) throws Exception {
         // Récupérer l'adresse complète de la base de données
-        System.out.println("adresse input :" + completeAddress);
         if (completeAddress != null) {
             String url = "https://nominatim.openstreetmap.org/search?q=" + completeAddress.replace(" ", "+")
                     + "&format=json&limit=1";
@@ -41,7 +40,7 @@ public abstract class GeocodingService {
 
             // Convertir la réponse en chaîne JSON
             String jsonResponse = response.toString();
-            System.out.println(jsonResponse);
+            System.out.println("ZOZO" + jsonResponse);
 
             // Analyser la réponse JSON et extraire les coordonnées GPS
             JSONArray jsonArray = new JSONArray(jsonResponse);
@@ -49,7 +48,7 @@ public abstract class GeocodingService {
                 JSONObject jsonObject = jsonArray.getJSONObject(0);
                 double lat = jsonObject.getDouble("lat");
                 double lon = jsonObject.getDouble("lon");
-                System.out.println("Latitude: " + lat + ", Longitude: " + lon);
+                System.out.println("LATITUDE : " + lat + ", LONGITUDE: " + lon);
                 return jsonObject;
             } else {
                 System.out.println("Aucune coordonnée GPS trouvée pour l'adresse.");
@@ -73,7 +72,7 @@ public abstract class GeocodingService {
                 String postalCode = rsAdress.getString("code_postal");
                 completeAddressPropriete = address + ", " + city + ", " + postalCode;
             }
-            System.out.println(completeAddressPropriete);
+            System.out.println("adresse proprio" + completeAddressPropriete);
 
         } catch (Exception e) {
             e.printStackTrace();

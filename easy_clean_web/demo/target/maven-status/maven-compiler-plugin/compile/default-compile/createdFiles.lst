@@ -9,6 +9,7 @@ view\Connection.class
 model\Property.class
 view\AccueilAdmin.class
 view\CreationCompte.class
+view\RechercheMission.class
 view\AccueilCleaner.class
 view\AccueilProprietaire.class
 model\Proprietaire.class

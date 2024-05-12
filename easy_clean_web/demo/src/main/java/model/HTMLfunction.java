@@ -88,18 +88,18 @@ public abstract class HTMLfunction {
 		out.print("<div id='mission' style='flex: 2;width: 150vh'>");
 		out.print("<h3>Recherchez vôtre prochaine mission</h3>");
 		out.print(
-				"<form name='adressCleaner' method='POST' id='address' style='width: 700px' action='rechercheMission'>");
-		out.print(
-				"<div>rue :<input type='text' name='' id='city'></div>"
-						+ "<div>ville :<input type='text' name='city' id='city'></div>"
-						+ "<div>code postal :<input type='text' name='postalcode' id='postalcode'></div>");
-		out.print("<div>");
-		out.print("<p>Kilomètres maximum :</p>");
-		out.print("<div class='slider-container'>");
-		out.print("<input type='number' name='maxDistance' step=\\\"0.1\\\" required>");
-		out.print("<div>");
-		out.print("<input type='submit' id='searchMission' value='rechercher'>");
-		out.print("</div>");
+				"<form name='adressCleaner' method='POST' id='address' action='rechercheMission'>"
+						+ "<div>Rue :<input type='text' name='street' id='street'></div>"
+						+ "<div>Ville :<input type='text' name='city' id='city'></div>"
+						+ "<div>Code Postal :<input type='text' name='postalcode' id='postalcode'></div>"
+						+ "<div>"
+						+ "<p>Kilomètres maximum :</p>"
+						+ "<input type='number' name='maxDistance' step='0.1' required>"
+						+ "</div>"
+						+ "<div>"
+						+ "<input type='submit' id='searchMission' value='Rechercher'>"
+						+ "</div>"
+						+ "</form>");
 		out.print("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
 		out.print("</form>");
 		out.print("</div>");
