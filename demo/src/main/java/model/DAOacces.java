@@ -19,7 +19,7 @@ public class DAOacces {
 		this.dbName = dbName;
 		this.login = login;
 		this.password = password;
-		this.strUrl = "jdbc:mysql://127.0.0.1:3307/" + dbName + "?useSSL=false&serverTimezone=Europe/Paris";
+		this.strUrl = "jdbc:mysql://127.0.0.1:3306/" + dbName + "?useSSL=false&serverTimezone=Europe/Paris";
 
 		try {
 			System.out.println("Connection à la BDD " + dbName);
