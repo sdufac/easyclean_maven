@@ -46,7 +46,7 @@ public class Utilisateur {
 		this.missions = new ArrayList<Mission>();
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

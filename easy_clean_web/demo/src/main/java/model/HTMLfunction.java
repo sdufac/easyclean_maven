@@ -108,7 +108,7 @@ public abstract class HTMLfunction {
 
 	}
 
-	public static void profilUser(PrintWriter out, Utilisateur cleaner) {
+	public static void profilUser(PrintWriter out, Utilisateur user) {
 		out.print("<head>");
 		out.print("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
 		out.print("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
@@ -116,25 +116,25 @@ public abstract class HTMLfunction {
 		out.print("<body>");
 		out.print("<div id='profilcontainer' style='flex: 1; border-right= 1;'>");
 		out.print("<br>");
-		out.print("<img src='localhost:9090/profil_picture/a.jpg' alt='image_inch'>");
+		out.print("<img src=./image/profil_picture/" + user.getUsername() + ".jpg' alt='image_inch'>");
 		out.print("<br>");
 		out.print("<div>Nom : ");
-		out.print(cleaner.getFirstName() + " " + cleaner.getSecondName());
+		out.print(user.getFirstName() + " " + user.getSecondName());
 		out.print("</div>");
 		out.print("<div>Email : ");
-		out.print(cleaner.getEmail());
+		out.print(user.getEmail());
 		out.print("</div>");
 		out.print("<div>Pseudo : ");
-		out.print(cleaner.getUsername());
+		out.print(user.getUsername());
 		out.print("</div>");
 		out.print("<div>Age : ");
-		out.print(String.valueOf(cleaner.getAge()));
+		out.print(String.valueOf(user.getAge()));
 		out.print("</div>");
 		out.print("<div> Note : ");
-		out.print(String.valueOf(cleaner.getGlobalGrade()));
+		out.print(String.valueOf(user.getGlobalGrade()));
 		out.print("</div>");
 		out.print("<div>Téléphone : ");
-		out.print(String.valueOf(cleaner.getPhoneNumber()));
+		out.print(String.valueOf(user.getPhoneNumber()));
 		out.print("</div>");
 		out.print("<button id='logout'>Logout</button>");
 		out.print("<br>");

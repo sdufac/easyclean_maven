@@ -45,7 +45,6 @@ public class AfficherMission extends HttpServlet {
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 if (resultSet.next()) {
-                    System.out.println("Mission found in database."); // Debugging line
                     mission = new Mission(
                             resultSet.getString("date_mission"),
                             resultSet.getDouble("time_mission"),
@@ -57,11 +56,13 @@ public class AfficherMission extends HttpServlet {
                             resultSet.getInt("id_proprietaire"),
                             resultSet.getString("statut"));
                     mission.setIdMission(resultSet.getInt("mission_id"));
+
                 }
 
                 if (mission != null) {
-                    System.out.println("Mission is not null. Preparing to display."); // Debugging line
                     try (PrintWriter out = response.getWriter()) {
+                        // Assuming you have a way to get the user ID from the session or another source
+                        String userId = String.valueOf(((Cleaner) request.getSession().getAttribute("user")).getId());
                         out.append("<html>"
                                 + "<head>"
                                 + "<title>Détails de la mission</title>"
@@ -77,8 +78,21 @@ public class AfficherMission extends HttpServlet {
                                 + "<tr><th>Instructions</th><td>" + mission.getInstruction() + "</td></tr>"
                                 + "<tr><th>Status</th><td>" + mission.getStatut() + "</td></tr>"
                                 + "</table>"
-                                + "<form action='/postulerMission' method='POST'>"
+                                + "<form action='controleurPostulerMission' method='POST'>"
                                 + "<input type='hidden' name='missionId' value='" + mission.getIdMission() + "'>"
+                                + "<input type='hidden' name='userId' value='" + userId + "'>"
+                                + "<div class='form-group'>"
+                                + "<label for='horaireStart'>Horaire de début :</label>"
+                                + "<input type='number' class='form-control' id='horaireStart' name='horaireStart' step='0.1' required>"
+                                + "</div>"
+                                + "<div class='form-group'>"
+                                + "<label for='horaireEnd'>Horaire de fin :</label>"
+                                + "<input type='number' class='form-control' id='horaireEnd' name='horaireEnd' step='0.1' required>"
+                                + "</div>"
+                                + "<div class='form-group'>"
+                                + "<label for='salaireCleaner'>Salaire :</label>"
+                                + "<input type='number' class='form-control' id='salaireCleaner' name='salaireCleaner' step='0.01' required>"
+                                + "</div>"
                                 + "<button type='submit' class='btn btn-primary'>Postuler</button>"
                                 + "</form>"
                                 + "</div>"
@@ -86,17 +100,18 @@ public class AfficherMission extends HttpServlet {
                                 + "</html>");
                     }
                 } else {
-                    System.out.println("Mission is null."); // Debugging line
+                    System.out.println("Mission is null.");
                     try (PrintWriter out = response.getWriter()) {
                         out.print("Mission non trouvée.");
                     }
                 }
+
             } catch (Exception e) {
-                System.out.println("Exception occurred: " + e.getMessage()); // Debugging line
+                System.out.println("Exception occurred: " + e.getMessage());
                 e.printStackTrace();
             }
         } else {
-            System.out.println("missionIdStr is null."); // Debugging line
+            System.out.println("missionIdStr is null.");
             try (PrintWriter out = response.getWriter()) {
                 out.print("Aucun identifiant de mission fourni.");
             }
