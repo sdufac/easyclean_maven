@@ -1,5 +1,6 @@
 package view;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,22 +39,28 @@ public class AfficherMission extends HttpServlet {
                 String query = "SELECT m.date_mission, m.time_mission, m.instruction, m.proprietaire_start, m.proprietaire_end, "
                         + "p.adress, m.id_propriete, m.id_proprietaire, m.statut, m.mission_id "
                         + "FROM Mission m "
-                        + "JOIN propriete p ON m.id_propriete = p.propriete_id "
+                        + "JOIN propriete p ON m.id_propriete = p.propriete_id JOIN users ON id_proprietaire = id_user"
                         + "WHERE m.mission_id = ?";
                 PreparedStatement preparedStatement = dao.getConnection().prepareStatement(query);
                 preparedStatement.setInt(1, missionId);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 if (resultSet.next()) {
+                    String adress = resultSet.getString("adress")+" "+resultSet.getInt("code_postal")+" "+resultSet.getString("ville");
+                    Property property = new Property(resultSet.getInt("propriete_id"), adress,resultSet.getInt("code_entrer"),resultSet.getInt("surface"));
+
+                    Proprietaire proprio = new Proprietaire(resultSet.getString("first_name"), resultSet.getString("second_name"),resultSet.getString("username"),resultSet.getString("mail"), resultSet.getString("password"),resultSet.getInt("age"),  resultSet.getString("bio"), resultSet.getInt("phone_number"),resultSet.getString("date_of_birth"),resultSet.getFloat("note"));
+                    proprio.setDateOfCreation(resultSet.getDate("date_creation"));
+					proprio.setId(resultSet.getInt("id_user"));
+
                     mission = new Mission(
                             resultSet.getString("date_mission"),
                             resultSet.getDouble("time_mission"),
                             resultSet.getString("instruction"),
                             resultSet.getDouble("proprietaire_start"),
                             resultSet.getDouble("proprietaire_end"),
-                            resultSet.getString("adress"),
-                            resultSet.getInt("id_propriete"),
-                            resultSet.getInt("id_proprietaire"),
+                            proprio,
+                            property,
                             resultSet.getString("statut"));
                     mission.setIdMission(resultSet.getInt("mission_id"));
 
@@ -72,7 +79,7 @@ public class AfficherMission extends HttpServlet {
                                 + "<div class='container mt-3'>"
                                 + "<h2>Détails de la mission</h2>"
                                 + "<table class='table table-bordered'>"
-                                + "<tr><th>Address</th><td>" + mission.getAdress() + "</td></tr>"
+                                + "<tr><th>Address</th><td>" + mission.getProperty().getAdress() + "</td></tr>"
                                 + "<tr><th>Date</th><td>" + mission.getDate() + "</td></tr>"
                                 + "<tr><th>Duration</th><td>" + String.valueOf(mission.getDuration()) + "</td></tr>"
                                 + "<tr><th>Instructions</th><td>" + mission.getInstruction() + "</td></tr>"
