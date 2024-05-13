@@ -71,7 +71,7 @@ public class ControllerLitige extends HttpServlet {
         Files.copy(file3, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_3.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
 
         //Litige en bdd
-        Litige l = new Litige(m.getCleaner(),request.getParameter("text"),user.getId()+"_"+m.getIdMission()+"_1.png",user.getId()+"_"+m.getIdMission()+"_2.png",user.getId()+"_"+m.getIdMission()+"_3.png",m);
+        Litige l = new Litige(m.getCleaner(),request.getParameter("text"),user.getId()+"_"+m.getIdMission()+"_1.png",user.getId()+"_"+m.getIdMission()+"_2.png",user.getId()+"_"+m.getIdMission()+"_3.png",m,"enCours");
         user.setLitiges(l);
 
         DAOacces bdd = new DAOacces("easy_clean","root","");

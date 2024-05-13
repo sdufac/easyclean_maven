@@ -4,28 +4,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Mission {
+    private int idMission;
     private String date;
     private double duration;
     private List<Double> limit = new ArrayList<Double>();
     private List<Double> horaireCleaner = new ArrayList<Double>();
     private String instruction;
-    private int idMission;
-    private String adress;
-    private int id_propriete;
-    private int idProprio;
     private String statut;
+    
     private Cleaner cleaner;
+    private Property property;
+    private Proprietaire proprietaire;
 
-    public Mission(String date, double duration, String instruction, double limitStart, double limitEnd, String adress, int id_Propriete, int idProprio,String statut) {
+    public Mission(String date, double duration, String instruction, double limitStart, double limitEnd,Proprietaire p, Property property,String statut) {
         this.date = date;
         this.duration = duration;
         this.instruction = instruction;
         this.limit.add(limitStart);
         this.limit.add(limitEnd);
-        this.adress = adress;
-        this.id_propriete = id_Propriete;
-        this.idProprio = idProprio;   
         this.statut = statut;
+        this.property = property;
+        this.proprietaire = p;
     }
     
     public void addHoraireCleaner(double a,double b) {
@@ -52,18 +51,6 @@ public class Mission {
 	public void setLimit(Double limit) {
 		this.limit.add(limit);
 	}
-
-	public int getId_propriete() {
-		return id_propriete;
-	}
-
-	public void setId_propriete(int id_propriete) {
-		this.id_propriete = id_propriete;
-	}
-
-	public int getId_proprio() {
-        return id_propriete;
-    }
 
     public String getDate() {
         return date;
@@ -97,22 +84,6 @@ public class Mission {
     	this.idMission = id;
     }
 
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
-	public int getIdProprio() {
-		return idProprio;
-	}
-
-	public void setIdProprio(int idProprio) {
-		this.idProprio = idProprio;
-	}
-
 	public String getStatut() {
 		return statut;
 	}
@@ -139,4 +110,17 @@ public class Mission {
         return this.cleaner;
     }
 
+    public void setProprietaire(Proprietaire p){
+        this.proprietaire = p;
+    }
+    public Proprietaire getProprietaire(){
+        return this.proprietaire;
+    }
+
+    public void setProperty(Property p){
+        this.property = p;
+    }
+    public Property getProperty(){
+        return this.property;
+    }
 }

@@ -46,9 +46,9 @@ public class AccueilProprietaire extends HttpServlet {
 		response.getWriter().append(
 			"<body>"
 			+"<h2>Accueil Proprietaire</h2>"
-			+ user.getSecondName() + " " + user.getFirstName()+"<br>"
-			+"<img src=\"./image/profile_picture/"+user.getUsername()+".png\" width=\"100\" height=\"100\">"
 			+"<hr>"
+			+ user.getSecondName() + " " + user.getFirstName()+"<br>"
+			+"<img src=\"./image/profile_picture/"+user.getUsername()+".png\" width=\"100\" height=\"100\"><br>"
 			+"<button type=\"button\" onclick=\"location.href='addproperty'\">Enregistrer une propriétée</button>"
 			+"<button type=\"button\" onclick=\"location.href='profil'\">Voir Profil</button>"
 			+"<hr>"

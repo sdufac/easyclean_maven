@@ -1,5 +1,6 @@
 model\Cleaner.class
 model\DAOacces.class
+controller\ControllerAcceptLitige.class
 controller\ControllerPostulation.class
 view\Profil.class
 controller\ControllerConnection.class
@@ -7,12 +8,12 @@ view\VueLitige.class
 model\Property.class
 view\AccueilAdmin.class
 view\AccueilCleaner.class
+controller\ControllerRefuseLitige.class
 view\AccueilProprietaire.class
 view\AddProperty.class
 controller\ControllerCommentaire.class
 controller\ControllerLitige.class
 view\AccueilInvite.class
-controller\ControleurRechercheMission.class
 controller\ControllerAnnulerMission.class
 model\GeocodingService.class
 model\Litige.class
@@ -21,12 +22,14 @@ controller\ControllerFinMission.class
 controller\ControllerAddProperty.class
 model\Utilisateur.class
 controller\ControllerInvite.class
+controller\ControllerRechercheUser.class
 controller\TemplateServlet.class
 view\AfficherMission.class
 view\Connection.class
 controller\ControllerProprietaire.class
 view\CreationCompte.class
 view\ProfilUser.class
+controller\ControllerBan.class
 controller\ControllerInfoMission.class
 model\Proprietaire.class
 model\Postulation.class

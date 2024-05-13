@@ -24,7 +24,9 @@ public class Utilisateur {
 	private Date dateOfCreation;
 	private HashMap<Float, String> comment;
 	private float globalGrade;
+
 	private ArrayList<Litige> litiges;
+	private ArrayList<Mission> missions;
 
 	public Utilisateur(String username, String firstName, String secondName, int age, String password,
 			String email, int phoneNumber, String dateOfBirth, float globalGrade,String description) {
@@ -41,6 +43,8 @@ public class Utilisateur {
 		this.globalGrade = globalGrade;
 		this.description = description;
 		this.litiges = new ArrayList<>();
+
+		this.missions = new ArrayList<Mission>();
 	}
 	
 	public int getId() {
@@ -202,6 +206,29 @@ public class Utilisateur {
 	public Litige checkMissionLitige(int idMission){
 		for(Litige l : this.getLitiges()){
 			if(l.getLmission().getIdMission()== idMission)return l;
+		}
+		return null;
+	}
+	public Litige getLitigeById(int id){
+		for(Litige l:this.getLitiges()){
+			if(l.getId() == id){
+				return l;
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<Mission> getMissions(){
+		return missions;
+	}
+	public void setMission(Mission mission) {
+		this.missions.add(mission);
+	}
+	public Mission getMissionById(int idMission){
+		for(Mission m: this.getMissions()){
+			if(m.getIdMission() == idMission){
+				return m;
+			}
 		}
 		return null;
 	}

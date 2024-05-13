@@ -11,25 +11,26 @@ public class Litige {
 	private String image3;
 	private String statutLitige;
 	
-
-    public Litige(Cleaner cleaner,String textLitige, String image1, String image2, String image3,Mission m) {
+	//Constructeur si l'auteur est un cleaner
+    public Litige(Cleaner cleaner,String textLitige, String image1, String image2, String image3,Mission m,String statut) {
        this.authorc = cleaner;
        this.lmission = m;
        this.textLitige = textLitige;
        this.image1 = image1;
        this.image2 = image2;
        this.image3 = image3;
+	   this.statutLitige = statut;
     }
     
-   
-    
-    public Litige(Proprietaire authorp, String textLitige, String image1, String image2, String image3,Mission lmission) {
+	//Constructeur si l'auteur est un propriétaire
+    public Litige(Proprietaire authorp, String textLitige, String image1, String image2, String image3,Mission lmission,String statut) {
         this.authorp= authorp;
     	this.textLitige = textLitige;
         this.image1 = image1;
         this.image2 = image2;
         this.image3 = image3;
         this.lmission = lmission;
+		this.statutLitige = statut;
     }
     
 	public String getStatutLitige() {

@@ -19,7 +19,7 @@ public abstract class HTMLfunction {
 		String html = "<table>";
 		for (Mission m : mtab) {
 			html = html + "<tr>";
-			html = html + "<th>" + m.getAdress() + "</th>";
+			html = html + "<th>" + m.getProperty().getAdress() + "</th>";
 			html = html + "<th>" + m.getDate() + "</th>";
 			html = html + "<th>" + m.getInstruction() + "</th>";
 			html = html + "</tr>";
@@ -51,7 +51,7 @@ public abstract class HTMLfunction {
 				}
 
 				tabAvailable = tabAvailable + "<tr>";
-				tabAvailable = tabAvailable + "<th>" + m.getAdress() + "</th>";
+				tabAvailable = tabAvailable + "<th>" + m.getProperty().getAdress() + "</th>";
 				tabAvailable = tabAvailable + "<th>" + m.getDate() + "</th>";
 				tabAvailable = tabAvailable + "<th>" + m.getInstruction() + "</th>";
 				tabAvailable = tabAvailable + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
@@ -61,7 +61,7 @@ public abstract class HTMLfunction {
 				availableCount++;
 			} else if (m.getStatut().equals("waiting")) {
 				tabWaiting = tabWaiting + "<tr>";
-				tabWaiting = tabWaiting + "<th>" + m.getAdress() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getProperty().getAdress() + "</th>";
 				tabWaiting = tabWaiting + "<th>" + m.getDate() + "</th>";
 				tabWaiting = tabWaiting + "<th>" + m.getInstruction() + "</th>";
 				tabWaiting = tabWaiting + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
@@ -70,7 +70,7 @@ public abstract class HTMLfunction {
 				waitingCount++;
 			} else if (m.getStatut().equals("cleanerFinished")){
 				tabWaiting = tabWaiting + "<tr>";
-				tabWaiting = tabWaiting + "<th>" + m.getAdress() + "</th>";
+				tabWaiting = tabWaiting + "<th>" + m.getProperty().getAdress() + "</th>";
 				tabWaiting = tabWaiting + "<th>" + m.getDate() + "</th>";
 				tabWaiting = tabWaiting + "<th>" + m.getInstruction() + "</th>";
 				tabWaiting = tabWaiting + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
@@ -79,15 +79,15 @@ public abstract class HTMLfunction {
 
 				waitingCount++;
 			}else if (m.getStatut().equals("finished")) {
-				
-
 				tabFinished = tabFinished + "<tr>";
-				tabFinished = tabFinished + "<th>" + m.getAdress() + "</th>";
+				tabFinished = tabFinished + "<th>" + m.getProperty().getAdress() + "</th>";
 				tabFinished = tabFinished + "<th>" + m.getDate() + "</th>";
 				tabFinished = tabFinished + "<th>" + m.getInstruction() + "</th>";
 				tabFinished = tabFinished + "<th><form action=\"vuemission\" method=\"POST\"><input type=\"hidden\" name=\"idMission\" value=\""+m.getIdMission()+"\"><input type=\"submit\" value=\"Voir\"></form></th>";
 				if(user.checkMissionLitige(m.getIdMission())!=null){
-					tabFinished = tabFinished + "<th>Litige en cours</th>";
+					if(user.checkMissionLitige(m.getIdMission()).getStatutLitige().equals("accepte"))tabFinished = tabFinished + "<th>Litige accepté</th>";
+					else if(user.checkMissionLitige(m.getIdMission()).getStatutLitige().equals("refuse"))tabFinished = tabFinished + "<th>Litige refusé</th>";
+					else if(user.checkMissionLitige(m.getIdMission()).getStatutLitige().equals("enCours"))tabFinished = tabFinished + "<th>Litige en cours</th>";
 				}	
 				tabFinished = tabFinished + "</tr>";
 

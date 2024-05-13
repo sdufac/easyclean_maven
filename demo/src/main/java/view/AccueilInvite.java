@@ -36,7 +36,7 @@ public class AccueilInvite extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 
-		HTMLfunction.head(response.getWriter());
+		/*HTMLfunction.head(response.getWriter());
 		DAOacces bdd = new DAOacces("easy_clean","root","");
 		System.out.println(bdd.getDbName());
 		try {
@@ -52,11 +52,11 @@ public class AccueilInvite extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		// TODO Auto-generated method stub
 		response.getWriter().append("<body><h2>Accueil Invité</h2><button type=\"button\" onclick=\"location.href='connection'\"/>Se connecter</button> <button type=\"button\" onclick=\"location.href='createaccount'\"/>Créer un compte</button><hr>");
-		response.getWriter().append(HTMLfunction.tabMission(missionTab));
+		//response.getWriter().append(HTMLfunction.tabMission(missionTab));
 		response.getWriter().append("</body></html>");
 	}
 

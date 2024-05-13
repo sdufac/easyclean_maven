@@ -30,7 +30,7 @@ public class AfficherMission extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String address = request.getParameter("address");
+        /*String address = request.getParameter("address");
         String rangeValue = request.getParameter("myRange");
 
         Cleaner user = (Cleaner) request.getSession().getAttribute("user");
@@ -67,6 +67,6 @@ public class AfficherMission extends HttpServlet {
 
             out.append("</body>");
             out.append("</html>");
-        }
+        }*/
     }
 }

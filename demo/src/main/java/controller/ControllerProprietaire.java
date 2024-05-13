@@ -119,7 +119,7 @@ public class ControllerProprietaire extends HttpServlet {
                 ResultSet rsNewMission = stMission.executeQuery(strGetNewMission);
                 while (rsNewMission.next()) {
                     String adress = rsNewMission.getString(16)+" "+rsNewMission.getString(19)+" "+rsNewMission.getString(20);
-                    Mission m = new Mission(rsNewMission.getString(2),rsNewMission.getDouble(3),rsNewMission.getString(4),rsNewMission.getDouble(10),rsNewMission.getDouble(11),adress,rsNewMission.getInt(7),user.getId(),rsNewMission.getString("nom"));
+                    Mission m = new Mission(rsNewMission.getString("date_mission"),rsNewMission.getDouble("time_mission"),rsNewMission.getString("instruction"),rsNewMission.getDouble("proprietaire_start"),rsNewMission.getDouble("proprietaire_end"),user,user.getPropertyById(idProperty),rsNewMission.getString("nom"));
                     m.setIdMission(rsNewMission.getInt(1));
                     user.setMission(m);
                 }

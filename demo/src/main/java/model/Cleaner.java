@@ -7,7 +7,7 @@ public class Cleaner extends Utilisateur{
 	private int salaryPerHour;
 	private String statut;
 	private int perimeter;
-	ArrayList<Mission> postulation;
+	ArrayList<Postulation> postulation;
 
 	public Cleaner(String firstName, String secondName, String username, String email, String password,
 			int age, String description, int phoneNumber, String dateOfBirth, float globalGrade, int missionDone,
@@ -18,17 +18,17 @@ public class Cleaner extends Utilisateur{
 		this.missionDone = missionDone;
 		this.salaryPerHour = salaryPerHour;
 		this.perimeter = perimeter;
-		this.postulation = new ArrayList<Mission>();
+		this.postulation = new ArrayList<Postulation>();
 	}
 	
 	
 	
-	public ArrayList<Mission> getPostulation() {
+	public ArrayList<Postulation> getPostulation() {
 		return postulation;
 	}
 
-	public void addPostulation(Mission m) {
-		this.postulation.add(m);
+	public void addPostulation(Postulation p) {
+		this.postulation.add(p);
 	}
 
 
