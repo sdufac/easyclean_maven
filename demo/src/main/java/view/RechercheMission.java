@@ -24,6 +24,8 @@ import java.util.TreeMap;
 
 import controller.ControleurRechercheMission;
 import model.Mission;
+import model.Property;
+import model.Proprietaire;
 
 @WebServlet(name = "RechercheMission", urlPatterns = { "/rechercheMission" })
 public class RechercheMission extends HttpServlet {
@@ -79,7 +81,7 @@ public class RechercheMission extends HttpServlet {
                         if (missionEntry.getKey() < maxDistance) {
                             Mission mission = missionEntry.getValue();
                             out.append("<tr>"
-                                    + "<td>" + mission.getAdress() + "</td>"
+                                    + "<td>" + mission.getProperty().getAdress() + "</td>"
                                     + "<td>" + mission.getDate() + "</td>"
                                     + "<td>" + String.valueOf(mission.getDuration()) + "</td>"
                                     + "<td>" + mission.getInstruction() + "</td>"
@@ -114,11 +116,18 @@ public class RechercheMission extends HttpServlet {
         SortedMap<Double, Mission> ResultMission = new TreeMap<>();
         DAOacces dao = new DAOacces("easy_clean", "toto", "titi");
         try {
-            String strQuery = "SELECT * FROM Mission WHERE statut = '1';";
+            String strQuery = "SELECT * FROM Mission JOIN users ON id_proprietaire=id_user JOIN propriete ON id_propriete=propriete_id WHERE statut = '1';";
             ResultSet rsLogin = dao.getStLogin().executeQuery(strQuery);
             while (rsLogin.next()) {
                 int idMission = rsLogin.getInt("mission_id");
                 int idPropriete = rsLogin.getInt("id_propriete");
+
+                String adress = rsLogin.getString("adress")+" "+rsLogin.getInt("code_postal")+" "+rsLogin.getString("ville");
+                Property property = new Property(rsLogin.getInt("propriete_id"), adress,rsLogin.getInt("code_entrer"),rsLogin.getInt("surface"));
+
+                Proprietaire proprio = new Proprietaire(rsLogin.getString("first_name"), rsLogin.getString("second_name"),rsLogin.getString("username"),rsLogin.getString("mail"), rsLogin.getString("password"),rsLogin.getInt("age"),  rsLogin.getString("bio"), rsLogin.getInt("phone_number"),rsLogin.getString("date_of_birth"),rsLogin.getFloat("note"));
+                proprio.setDateOfCreation(rsLogin.getDate("date_creation"));
+				proprio.setId(rsLogin.getInt("id_user"));
 
                 String adressCleaner = address;
                 String adressPropriete = GeocodingService.getAdressepropriete(idPropriete);
@@ -136,10 +145,16 @@ public class RechercheMission extends HttpServlet {
                         coordonnesPropriete.getDouble("lon"));
 
                 System.out.println("Distance: " + distance);
-                Mission m = new Mission(rsLogin.getString(2), rsLogin.getDouble(3), rsLogin.getString(4),
-                        rsLogin.getDouble(10), rsLogin.getDouble(11), adressPropriete, rsLogin.getInt(7), user.getId(),
-                        rsLogin.getString("statut"));
-                m.setIdMission(idMission);
+                Mission m = new Mission(
+                    rsLogin.getString("date_mission"),
+                    rsLogin.getDouble("time_mission"),
+                    rsLogin.getString("instruction"),
+                    rsLogin.getDouble("proprietaire_start"),
+                    rsLogin.getDouble("proprietaire_end"),
+                    proprio,
+                    property,
+                    rsLogin.getString("statut"));
+            m.setIdMission(rsLogin.getInt("mission_id"));
 
                 ResultMission.put(distance, m);
 
