@@ -21,28 +21,28 @@ import java.sql.Statement;
  */
 @WebServlet(name = "ControllerAddProperty", urlPatterns = { "/controlleraddproperty" })
 public class ControllerAddProperty extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ControllerAddProperty() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ControllerAddProperty() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
         boolean isError = false;
         String errorString = "ERREUR :";
 
         HttpSession session = request.getSession();
-        Proprietaire user = (Proprietaire)session.getAttribute("user");
+        Proprietaire user = (Proprietaire) session.getAttribute("user");
 
         String adress = "";
         String ville = "";
@@ -50,75 +50,80 @@ public class ControllerAddProperty extends HttpServlet {
         int digicode = 0;
         int surface = 0;
 
-		if(request.getParameter("adress").equals("")){
+        if (request.getParameter("adress").equals("")) {
             isError = true;
             errorString = errorString + "adresse non valide,";
-        }else{
+        } else {
             adress = request.getParameter("adress");
         }
 
-        if(request.getParameter("ville").equals("")){
+        if (request.getParameter("ville").equals("")) {
             isError = true;
             errorString = errorString + "ville non valide,";
-        }else{
+        } else {
             ville = request.getParameter("ville");
         }
 
-        if(request.getParameter("codePostal").equals("")){
+        if (request.getParameter("codePostal").equals("")) {
             isError = true;
             errorString = errorString + "code postal non valide,";
-        }else{
-            codePostal = Integer.valueOf(request.getParameter("codePostal")) ;
+        } else {
+            codePostal = Integer.valueOf(request.getParameter("codePostal"));
         }
 
-        if(!request.getParameter("digicode").equals("")){
-            digicode = Integer.valueOf(request.getParameter("digicode")) ;
+        if (!request.getParameter("digicode").equals("")) {
+            digicode = Integer.valueOf(request.getParameter("digicode"));
         }
 
-        if(request.getParameter("surface").equals("")){
+        if (request.getParameter("surface").equals("")) {
             isError = true;
             errorString = errorString + "surface non valide,";
-        }else{
-            surface = Integer.valueOf(request.getParameter("surface")) ;
+        } else {
+            surface = Integer.valueOf(request.getParameter("surface"));
         }
 
-        if(!isError){
-            DAOacces bdd = new DAOacces("easy_clean", "root", "");
-            try{
+        if (!isError) {
+            DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+            try {
                 Statement stProperty = bdd.getConnection().createStatement();
-                System.out.println("Adress: " + adress +",Ville: " +ville+",Id: "+user.getId()+",Digicode: "+digicode+",Code postal: "+codePostal+",Surface :"+surface);
-                String strQuery = "INSERT INTO propriete (adress, code_entrer,proprietaire_id,ville,code_postal,surface) VALUES ('"+adress+"',"+digicode+","+user.getId()+",'"+ville+"',"+codePostal+","+surface+");";
+                System.out.println("Adress: " + adress + ",Ville: " + ville + ",Id: " + user.getId() + ",Digicode: "
+                        + digicode + ",Code postal: " + codePostal + ",Surface :" + surface);
+                String strQuery = "INSERT INTO propriete (adress, code_entrer,proprietaire_id,ville,code_postal,surface) VALUES ('"
+                        + adress + "'," + digicode + "," + user.getId() + ",'" + ville + "'," + codePostal + ","
+                        + surface + ");";
                 stProperty.executeUpdate(strQuery);
 
-                String strSelectNewProperty = "SELECT * FROM propriete WHERE adress ='"+adress+"'AND ville ='"+ville+"'AND code_postal =" + codePostal+";";
+                String strSelectNewProperty = "SELECT * FROM propriete WHERE adress ='" + adress + "'AND ville ='"
+                        + ville + "'AND code_postal =" + codePostal + ";";
                 ResultSet rsProperty = stProperty.executeQuery(strSelectNewProperty);
-                
+
                 int idProperty = 0;
 
                 while (rsProperty.next()) {
                     idProperty = rsProperty.getInt("propriete_id");
                 }
 
-                String fullAdress = adress+" "+ville+" "+codePostal;
-                user.setProperties(new Property(idProperty, fullAdress, digicode, (int)surface));
+                String fullAdress = adress + " " + ville + " " + codePostal;
+                user.setProperties(new Property(idProperty, fullAdress, digicode, (int) surface));
 
-                getServletContext().getRequestDispatcher("/proprietaire").forward(request,response);
-            }catch(SQLException e){
-                System.err.println("Erreur");  e.printStackTrace();
+                getServletContext().getRequestDispatcher("/proprietaire").forward(request, response);
+            } catch (SQLException e) {
+                System.err.println("Erreur");
+                e.printStackTrace();
             }
-        }else{
+        } else {
             response.getWriter().append(errorString);
         }
-	}
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
 
 }

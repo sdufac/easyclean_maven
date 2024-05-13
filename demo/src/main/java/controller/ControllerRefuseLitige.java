@@ -48,22 +48,22 @@ public class ControllerRefuseLitige extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-        Admin admin = (Admin)session.getAttribute("user");
-        Litige litige = admin.getLitigeById(Integer.valueOf(request.getParameter("litigeid")));
+		Admin admin = (Admin) session.getAttribute("user");
+		Litige litige = admin.getLitigeById(Integer.valueOf(request.getParameter("litigeid")));
 
-		DAOacces bdd = new DAOacces("easy_clean","root","");
-		String stQuery = "UPDATE `litige` SET `id_statut` = '2' WHERE `litige`.`litige_id` ="+ litige.getId();
+		DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+		String stQuery = "UPDATE `litige` SET `id_statut` = '2' WHERE `litige`.`litige_id` =" + litige.getId();
 		try {
 			Statement stLitige = bdd.getConnection().createStatement();
 			stLitige.executeUpdate(stQuery);
 			litige.setStatutLitige("refuse");
-            admin.getLitiges().remove(litige);
+			admin.getLitiges().remove(litige);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        getServletContext().getRequestDispatcher("/admin").forward(request,response);
+		getServletContext().getRequestDispatcher("/admin").forward(request, response);
 	}
 
 }

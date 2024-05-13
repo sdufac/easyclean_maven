@@ -47,34 +47,35 @@ public class ControllerAnnulerMission extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int id = Integer.valueOf(request.getParameter("idmission")); 
+		int id = Integer.valueOf(request.getParameter("idmission"));
 
-        DAOacces bdd = new DAOacces("easy_clean", "root", "");
-        try{
-            Statement stDelete = bdd.getConnection().createStatement();
-			String strPostulation = "DELETE FROM postulation WHERE idMission =" +id;
-            String strQuery = "DELETE FROM mission WHERE mission_id ="+id+";";
+		DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+		try {
+			Statement stDelete = bdd.getConnection().createStatement();
+			String strPostulation = "DELETE FROM postulation WHERE idMission =" + id;
+			String strQuery = "DELETE FROM mission WHERE mission_id =" + id + ";";
 			stDelete.executeUpdate(strPostulation);
-            stDelete.executeUpdate(strQuery);
+			stDelete.executeUpdate(strQuery);
 
-            HttpSession session = request.getSession();
-            Proprietaire user =(Proprietaire) session.getAttribute("user");
+			HttpSession session = request.getSession();
+			Proprietaire user = (Proprietaire) session.getAttribute("user");
 
-            int i = 0;
-            int index = 0;
-            for(Mission m: user.getMissions()){
-                if(m.getIdMission() == id){
-                    index = i;
-                }
-                i++;
-            }
+			int i = 0;
+			int index = 0;
+			for (Mission m : user.getMissions()) {
+				if (m.getIdMission() == id) {
+					index = i;
+				}
+				i++;
+			}
 
-            user.getMissions().remove(index);
+			user.getMissions().remove(index);
 
-            getServletContext().getRequestDispatcher("/proprietaire").forward(request,response);
-        }catch(SQLException e){
-            System.err.println("Erreur");  e.printStackTrace();
-        }
+			getServletContext().getRequestDispatcher("/proprietaire").forward(request, response);
+		} catch (SQLException e) {
+			System.err.println("Erreur");
+			e.printStackTrace();
+		}
 	}
 
 }

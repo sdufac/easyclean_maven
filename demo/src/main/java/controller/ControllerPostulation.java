@@ -46,23 +46,28 @@ public class ControllerPostulation extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-            HttpSession session = request.getSession();
-            Proprietaire user = (Proprietaire)session.getAttribute("user");
-            Postulation p = user.getPostulationById(Integer.valueOf(request.getParameter("idpostulation")));
+		HttpSession session = request.getSession();
+		Proprietaire user = (Proprietaire) session.getAttribute("user");
+		Postulation p = user.getPostulationById(Integer.valueOf(request.getParameter("idpostulation")));
 
-            System.out.println("ID:"+p.getCleaner().getId());
+		System.out.println("ID:" + p.getCleaner().getId());
 		// TODO Auto-generated method stub
-        DAOacces bdd = new DAOacces("easy_clean", "root", "");
-        try{
-            bdd.getConnection().createStatement().executeUpdate("UPDATE mission SET id_cleaner ="+p.getCleaner().getId()+",cleaner_start="+p.getHoraireStart()+",cleaner_end="+p.getHoraireEnd()+",final_salary="+p.getSalaireCleaner()+",statut =3 WHERE mission_id ="+p.getMission().getIdMission());
-            user.getMissionById(p.getMission().getIdMission()).setStatut("waiting");
-            user.getMissionById(p.getMission().getIdMission()).setCleaner(p.getCleaner());
-            user.getMissionById(p.getMission().getIdMission()).setHoraireCleaner(p.getHoraireStart(), p.getHoraireEnd());
-            user.removePostulation(p.getMission().getIdMission());
+		DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+		try {
+			bdd.getConnection().createStatement()
+					.executeUpdate("UPDATE mission SET id_cleaner =" + p.getCleaner().getId() + ",cleaner_start="
+							+ p.getHoraireStart() + ",cleaner_end=" + p.getHoraireEnd() + ",final_salary="
+							+ p.getSalaireCleaner() + ",statut =3 WHERE mission_id =" + p.getMission().getIdMission());
+			user.getMissionById(p.getMission().getIdMission()).setStatut("waiting");
+			user.getMissionById(p.getMission().getIdMission()).setCleaner(p.getCleaner());
+			user.getMissionById(p.getMission().getIdMission()).setHoraireCleaner(p.getHoraireStart(),
+					p.getHoraireEnd());
+			user.removePostulation(p.getMission().getIdMission());
 
-            getServletContext().getRequestDispatcher("/proprietaire").forward(request,response);
-        }catch(SQLException e){
-            System.err.println("Erreur");  e.printStackTrace();
-        }
+			getServletContext().getRequestDispatcher("/proprietaire").forward(request, response);
+		} catch (SQLException e) {
+			System.err.println("Erreur");
+			e.printStackTrace();
+		}
 	}
 }

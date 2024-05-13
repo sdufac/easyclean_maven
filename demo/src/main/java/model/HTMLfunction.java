@@ -127,22 +127,40 @@ public abstract class HTMLfunction {
 	}
 
 	public static void searchMission(PrintWriter out) {
-		out.append("<head>");
-		out.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-		out.append("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
-		out.append("</head>");
-		out.append("<body>");
-		out.append("<form name='result' id='result_search'>");
-		out.append("<h3>Recherchez vôtre prochaine mission</h3>");
-		out.append("<div>Adresse : <div><input type='text' name='address' id='address'></div></div>");
-		out.append("<div class='slider-container'>");
-		out.append("<input type='range' min='0' max='100' value='50' class='slider' id='myRange'>");
-		out.append("<p>Valeur: <span id='value'></span></p>");
-		out.append("</div>");
-		out.append("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
-		out.append("</form>");
-		out.append("</body>");
-		out.append("</html>");
+		out.append("<html>"
+				+ "<head>"
+				+ "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+				+ "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>"
+				+ "<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>"
+				+ "<title>Recherchez votre prochaine mission</title>"
+				+ "</head>"
+				+ "<body>"
+				+ "<div class='container mt-3' id='mission' style='flex: 2; width: 150vh;'>"
+				+ "<h2>Recherchez votre prochaine mission</h2>"
+				+ "<form name='adressCleaner' method='POST' id='address' action='rechercheMission'>"
+				+ "<div class='form-group'>"
+				+ "<label for='street'>Rue :</label>"
+				+ "<input type='text' class='form-control' name='street' id='street' required>"
+				+ "</div>"
+				+ "<div class='form-group'>"
+				+ "<label for='city'>Ville :</label>"
+				+ "<input type='text' class='form-control' name='city' id='city' required>"
+				+ "</div>"
+				+ "<div class='form-group'>"
+				+ "<label for='postalcode'>Code Postal :</label>"
+				+ "<input type='text' class='form-control' name='postalcode' id='postalcode' required>"
+				+ "</div>"
+				+ "<div class='form-group'>"
+				+ "<label for='maxDistance'>Kilomètres maximum :</label>"
+				+ "<input type='number' class='form-control' name='maxDistance' step='0.1' required>"
+				+ "</div>"
+				+ "<button type='submit' id='searchMission' class='btn btn-primary'>Rechercher</button>"
+				+ "</form>"
+				+ "</div>"
+				+ "<script src='src/main/webapp/WEB-INF/jsApp.js'></script>"
+				+ "</body>"
+				+ "</html>");
+
 	}
 
 	public static String comboProprietaire(ArrayList<Property> tab) {

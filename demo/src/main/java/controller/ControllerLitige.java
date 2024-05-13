@@ -57,34 +57,40 @@ public class ControllerLitige extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-        HttpSession session = request.getSession();
-        Proprietaire user = (Proprietaire)session.getAttribute("user");
-        Mission m = user.getMissionById(Integer.valueOf(request.getParameter("idmission")));
+		HttpSession session = request.getSession();
+		Proprietaire user = (Proprietaire) session.getAttribute("user");
+		Mission m = user.getMissionById(Integer.valueOf(request.getParameter("idmission")));
 
-        //Récuperation des fichiers
-        InputStream file1 = request.getPart("image1").getInputStream();
-        InputStream file2 = request.getPart("image2").getInputStream();
-        InputStream file3 = request.getPart("image3").getInputStream();
-		
-        Files.copy(file1, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_1.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(file2, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_2.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(file3, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"+user.getId()+"_"+m.getIdMission()+"_3.png").toPath(),StandardCopyOption.REPLACE_EXISTING);
+		// Récuperation des fichiers
+		InputStream file1 = request.getPart("image1").getInputStream();
+		InputStream file2 = request.getPart("image2").getInputStream();
+		InputStream file3 = request.getPart("image3").getInputStream();
 
-        //Litige en bdd
-        Litige l = new Litige(m.getCleaner(),request.getParameter("text"),user.getId()+"_"+m.getIdMission()+"_1.png",user.getId()+"_"+m.getIdMission()+"_2.png",user.getId()+"_"+m.getIdMission()+"_3.png",m,"enCours");
-        user.setLitiges(l);
+		Files.copy(file1, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"
+				+ user.getId() + "_" + m.getIdMission() + "_1.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(file2, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"
+				+ user.getId() + "_" + m.getIdMission() + "_2.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(file3, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\litige\\"
+				+ user.getId() + "_" + m.getIdMission() + "_3.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-        DAOacces bdd = new DAOacces("easy_clean","root","");
-        try{
-            Statement stLitige = bdd.getConnection().createStatement();
-            String strQuery = "INSERT INTO litige (text_litige,image1,image2,image3,id_autor,id_mission,id_statut) VALUES (\'"+l.getTextLitige()+"\',\'"+l.getImage1()+"\',\'"+l.getImage2()+"\',\'"+l.getImage3()+"\',"+user.getId()+","+m.getIdMission()+",1)";
+		// Litige en bdd
+		Litige l = new Litige(m.getCleaner(), request.getParameter("text"),
+				user.getId() + "_" + m.getIdMission() + "_1.png", user.getId() + "_" + m.getIdMission() + "_2.png",
+				user.getId() + "_" + m.getIdMission() + "_3.png", m, "enCours");
+		user.setLitiges(l);
 
-            stLitige.executeUpdate(strQuery);
-            getServletContext().getRequestDispatcher("/proprietaire").forward(request,response);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+		DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+		try {
+			Statement stLitige = bdd.getConnection().createStatement();
+			String strQuery = "INSERT INTO litige (text_litige,image1,image2,image3,id_autor,id_mission,id_statut) VALUES (\'"
+					+ l.getTextLitige() + "\',\'" + l.getImage1() + "\',\'" + l.getImage2() + "\',\'" + l.getImage3()
+					+ "\'," + user.getId() + "," + m.getIdMission() + ",1)";
+
+			stLitige.executeUpdate(strQuery);
+			getServletContext().getRequestDispatcher("/proprietaire").forward(request, response);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
-

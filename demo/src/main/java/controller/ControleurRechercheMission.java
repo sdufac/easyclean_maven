@@ -11,8 +11,8 @@ import model.*;
 public class ControleurRechercheMission {
 
     private String dbName = "easy_clean";
-    private String login = "root";
-    private String password = "";
+    private String login = "toto";
+    private String password = "titi";
     // private String strUrl;
     SortedMap<Double, Mission> ResultMission = new TreeMap<>();
 
@@ -46,23 +46,28 @@ public class ControleurRechercheMission {
                         coordonnesPropriete.getDouble("lon"));
 
                 System.out.println("Distance: " + distance);
-                String adress = rsLogin.getString("adress")+" "+rsLogin.getInt("code_postal")+" "+rsLogin.getString("ville");
-                    Property property = new Property(rsLogin.getInt("propriete_id"), adress,rsLogin.getInt("code_entrer"),rsLogin.getInt("surface"));
+                String adress = rsLogin.getString("adress") + " " + rsLogin.getInt("code_postal") + " "
+                        + rsLogin.getString("ville");
+                Property property = new Property(rsLogin.getInt("propriete_id"), adress, rsLogin.getInt("code_entrer"),
+                        rsLogin.getInt("surface"));
 
-                    Proprietaire proprio = new Proprietaire(rsLogin.getString("first_name"), rsLogin.getString("second_name"),rsLogin.getString("username"),rsLogin.getString("mail"), rsLogin.getString("password"),rsLogin.getInt("age"),  rsLogin.getString("bio"), rsLogin.getInt("phone_number"),rsLogin.getString("date_of_birth"),rsLogin.getFloat("note"));
-                    proprio.setDateOfCreation(rsLogin.getDate("date_creation"));
-					proprio.setId(rsLogin.getInt("id_user"));
+                Proprietaire proprio = new Proprietaire(rsLogin.getString("first_name"),
+                        rsLogin.getString("second_name"), rsLogin.getString("username"), rsLogin.getString("mail"),
+                        rsLogin.getString("password"), rsLogin.getInt("age"), rsLogin.getString("bio"),
+                        rsLogin.getInt("phone_number"), rsLogin.getString("date_of_birth"), rsLogin.getFloat("note"));
+                proprio.setDateOfCreation(rsLogin.getDate("date_creation"));
+                proprio.setId(rsLogin.getInt("id_user"));
 
-                    Mission m = new Mission(
-                            rsLogin.getString("date_mission"),
-                            rsLogin.getDouble("time_mission"),
-                            rsLogin.getString("instruction"),
-                            rsLogin.getDouble("proprietaire_start"),
-                            rsLogin.getDouble("proprietaire_end"),
-                            proprio,
-                            property,
-                            rsLogin.getString("statut"));
-                    m.setIdMission(rsLogin.getInt("mission_id"));
+                Mission m = new Mission(
+                        rsLogin.getString("date_mission"),
+                        rsLogin.getDouble("time_mission"),
+                        rsLogin.getString("instruction"),
+                        rsLogin.getDouble("proprietaire_start"),
+                        rsLogin.getDouble("proprietaire_end"),
+                        proprio,
+                        property,
+                        rsLogin.getString("statut"));
+                m.setIdMission(rsLogin.getInt("mission_id"));
 
                 ResultMission.put(distance, m);
             }

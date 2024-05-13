@@ -48,42 +48,46 @@ public class ControllerProfilUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        DAOacces bdd = new DAOacces("easy_clean", "root", "");
-		String strGetUser = "SELECT * FROM users WHERE id_user ="+request.getParameter("id");
-        
-        try{
-            Statement stGetUser = bdd.getConnection().createStatement();
-            ResultSet rsGetUser = stGetUser.executeQuery(strGetUser);
+		DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+		String strGetUser = "SELECT * FROM users WHERE id_user =" + request.getParameter("id");
 
-            while(rsGetUser.next()){
-                if(rsGetUser.getString("role").equals("Cleaner")){
-                    //Creation de l'utilisateur
-					Cleaner user = new Cleaner(rsGetUser.getString("first_name"),rsGetUser.getString("second_name"),rsGetUser.getString("username"),rsGetUser.getString("mail"),rsGetUser.getString("password"),rsGetUser.getInt("age"),rsGetUser.getString("bio"),rsGetUser.getInt("phone_number"),rsGetUser.getString("date_of_birth"),rsGetUser.getFloat("note"),rsGetUser.getInt("nb_mission"),rsGetUser.getInt("perimeter"),rsGetUser.getInt("tarif_horaire"));
+		try {
+			Statement stGetUser = bdd.getConnection().createStatement();
+			ResultSet rsGetUser = stGetUser.executeQuery(strGetUser);
+
+			while (rsGetUser.next()) {
+				if (rsGetUser.getString("role").equals("Cleaner")) {
+					// Creation de l'utilisateur
+					Cleaner user = new Cleaner(rsGetUser.getString("first_name"), rsGetUser.getString("second_name"),
+							rsGetUser.getString("username"), rsGetUser.getString("mail"),
+							rsGetUser.getString("password"), rsGetUser.getInt("age"), rsGetUser.getString("bio"),
+							rsGetUser.getInt("phone_number"), rsGetUser.getString("date_of_birth"),
+							rsGetUser.getFloat("note"), rsGetUser.getInt("nb_mission"), rsGetUser.getInt("perimeter"),
+							rsGetUser.getInt("tarif_horaire"));
 					user.setDateOfCreation(rsGetUser.getDate("date_creation"));
 					user.setId(rsGetUser.getInt(1));
 
-					//Creation des commentaires
+					// Creation des commentaires
 					Statement comment = bdd.getConnection().createStatement();
-					String strComment ="SELECT * FROM commentaire WHERE idUser ="+user.getId();
+					String strComment = "SELECT * FROM commentaire WHERE idUser =" + user.getId();
 					ResultSet rsComment = comment.executeQuery(strComment);
-					
-					while(rsComment.next()) {
+
+					while (rsComment.next()) {
 						user.setComment(rsComment.getFloat("note"), rsComment.getString("commentaire"));
 					}
 					user.getMoy();
 
-                    HttpSession session = request.getSession();
-                    session.setAttribute("profil", user);
-                    getServletContext().getRequestDispatcher("/profiluser").forward(request,response);
-                }
-                else{
-                    response.getWriter().append("ERREUR");
-                }
-            }
-            response.getWriter().append("ERREUR"+request.getParameter("id"));
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+					HttpSession session = request.getSession();
+					session.setAttribute("profil", user);
+					getServletContext().getRequestDispatcher("/profiluser").forward(request, response);
+				} else {
+					response.getWriter().append("ERREUR");
+				}
+			}
+			response.getWriter().append("ERREUR" + request.getParameter("id"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

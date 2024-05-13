@@ -47,28 +47,29 @@ public class ControllerBan extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        System.out.println(Integer.parseInt(request.getParameter("id")));
-		String strBan = "DELETE FROM users WHERE id_user ="+Integer.parseInt(request.getParameter("id"));
-        DAOacces bdd = new DAOacces("easy_clean", "root", "");
-        try{
-            Statement stBan = bdd.getConnection().createStatement();
-            stBan.executeUpdate(strBan);
-            HttpSession session = request.getSession();
-            session.removeAttribute("recherche");
-            System.out.println("RECHERCHE// "+session.getAttribute("recherche"));
-            Admin admin = (Admin)session.getAttribute("user");
+		System.out.println(Integer.parseInt(request.getParameter("id")));
+		String strBan = "DELETE FROM users WHERE id_user =" + Integer.parseInt(request.getParameter("id"));
+		DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
+		try {
+			Statement stBan = bdd.getConnection().createStatement();
+			stBan.executeUpdate(strBan);
+			HttpSession session = request.getSession();
+			session.removeAttribute("recherche");
+			System.out.println("RECHERCHE// " + session.getAttribute("recherche"));
+			Admin admin = (Admin) session.getAttribute("user");
 
-            if(request.getParameter("role").equals("cleaner")){
-                admin.getCleaners().remove(admin.getCleanerById(Integer.parseInt(request.getParameter("id"))));
-            }
-            else if(request.getParameter("role").equals("proprietaire")){
-                admin.getProprietaires().remove(admin.getProprietaireById(Integer.parseInt(request.getParameter("id"))));
-            }
-            getServletContext().getRequestDispatcher("/admin").forward(request,response);
-            
-        }catch(SQLException e){
-            System.out.println("ERREUR"); e.printStackTrace();
-        }
+			if (request.getParameter("role").equals("cleaner")) {
+				admin.getCleaners().remove(admin.getCleanerById(Integer.parseInt(request.getParameter("id"))));
+			} else if (request.getParameter("role").equals("proprietaire")) {
+				admin.getProprietaires()
+						.remove(admin.getProprietaireById(Integer.parseInt(request.getParameter("id"))));
+			}
+			getServletContext().getRequestDispatcher("/admin").forward(request, response);
+
+		} catch (SQLException e) {
+			System.out.println("ERREUR");
+			e.printStackTrace();
+		}
 	}
 
 }

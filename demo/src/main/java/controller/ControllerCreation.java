@@ -31,44 +31,45 @@ import java.util.regex.Pattern;
 @WebServlet(name = "controllercreation", urlPatterns = { "/controllercreation" })
 @MultipartConfig
 public class ControllerCreation extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ControllerCreation() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ControllerCreation() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doPost(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
+
         String errorString = "";
         boolean errorFlag = false;
 
-        //Regex declaration
+        // Regex declaration
         Pattern numberPattern = Pattern.compile("^[0-9]+$");
         Pattern letterPattern = Pattern.compile("^[a-zA-Z]+$");
-        Pattern emailPattern = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+        Pattern emailPattern = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
         Pattern phonePattern = Pattern.compile("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
 
-        //Parameter declaration
+        // Parameter declaration
         String name = "";
         String secondname = "";
         String mail = "";
@@ -76,175 +77,178 @@ public class ControllerCreation extends HttpServlet {
         String description = "Description vide pour le moment.";
         int phoneNumber = 0;
         String dateOfBirth = "";
-            
-        //Name check
-        if(request.getParameter("nom")!=null){
+
+        // Name check
+        if (request.getParameter("nom") != null) {
             Matcher matcher = letterPattern.matcher(request.getParameter("nom"));
-            if(!matcher.find()){
+            if (!matcher.find()) {
                 errorFlag = true;
                 errorString = "nom invalide";
+            } else {
+                System.out.println("//NOM - " + request.getParameter("nom").substring(matcher.start(), matcher.end()));
+                name = request.getParameter("nom").substring(matcher.start(), matcher.end());
             }
-            else {
-                System.out.println("//NOM - "+request.getParameter("nom").substring(matcher.start(),matcher.end()));
-                name = request.getParameter("nom").substring(matcher.start(),matcher.end());
-            }
-        }else{
+        } else {
             errorFlag = true;
             errorString = "nom null";
         }
-        //Second name check
-        if(request.getParameter("prenom")!=null){
+        // Second name check
+        if (request.getParameter("prenom") != null) {
             Matcher matcher = letterPattern.matcher(request.getParameter("prenom"));
-            if(!matcher.find()){
+            if (!matcher.find()) {
                 errorFlag = true;
                 errorString = "prenom invalide";
+            } else {
+                System.out.println(
+                        "//PRENOM - " + request.getParameter("prenom").substring(matcher.start(), matcher.end()));
+                secondname = request.getParameter("prenom").substring(matcher.start(), matcher.end());
             }
-            else {
-                System.out.println("//PRENOM - "+request.getParameter("prenom").substring(matcher.start(),matcher.end()));
-                secondname = request.getParameter("prenom").substring(matcher.start(),matcher.end());
-            }
-        }
-        else{
+        } else {
             errorFlag = true;
             errorString = "prenom null";
         }
-        
 
-        //Username check
-        if(request.getParameter("pseudo").isEmpty() || request.getParameter("pseudo") == null){
+        // Username check
+        if (request.getParameter("pseudo").isEmpty() || request.getParameter("pseudo") == null) {
             errorFlag = true;
             errorString = errorString + ",pseudo null";
         }
 
-        //Password check
-        if(request.getParameter("password").isEmpty() || request.getParameter("password") == null){
+        // Password check
+        if (request.getParameter("password").isEmpty() || request.getParameter("password") == null) {
             errorFlag = true;
             errorString = errorString + ",mdp null";
         }
 
-        //Mail check
-        if(request.getParameter("mail")!= null){
+        // Mail check
+        if (request.getParameter("mail") != null) {
             Matcher matcher = emailPattern.matcher(request.getParameter("mail"));
-            if(!matcher.find()){
+            if (!matcher.find()) {
                 errorFlag = true;
                 errorString = errorString + ",email invalide";
-            }
-            else{
-                System.out.println("//MAIL - " + request.getParameter("mail").substring(matcher.start(), matcher.end()));
+            } else {
+                System.out
+                        .println("//MAIL - " + request.getParameter("mail").substring(matcher.start(), matcher.end()));
                 mail = request.getParameter("mail").substring(matcher.start(), matcher.end());
             }
-        }
-        else{
+        } else {
             errorFlag = true;
             errorString = errorString + ",email null";
         }
-        
-        
-        //Age check
-        if(request.getParameter("age")!= null){
+
+        // Age check
+        if (request.getParameter("age") != null) {
             Matcher matcher = numberPattern.matcher(request.getParameter("age"));
-            if(!matcher.find()){
+            if (!matcher.find()) {
                 errorFlag = true;
                 errorString = errorString + ",age invalide";
-            }
-            else {
-                String ageStr = request.getParameter("age").substring(matcher.start(),matcher.end());
+            } else {
+                String ageStr = request.getParameter("age").substring(matcher.start(), matcher.end());
                 age = Integer.parseInt(ageStr);
             }
-        }
-        else{
+        } else {
             errorFlag = true;
             errorString = errorString + ",age null";
         }
-        
 
-        //Description check
-        if(!request.getParameter("bio").isEmpty() || request.getParameter("bio") != null){
+        // Description check
+        if (!request.getParameter("bio").isEmpty() || request.getParameter("bio") != null) {
             description = request.getParameter("bio");
         }
 
-        //Phone check
-        if(request.getParameter("phonenumber") !=null){
+        // Phone check
+        if (request.getParameter("phonenumber") != null) {
             Matcher matcher = phonePattern.matcher(request.getParameter("phonenumber"));
-            if(!matcher.find()){
+            if (!matcher.find()) {
                 errorFlag = true;
                 errorString = errorString + ",numero de téléphone invalide";
-            }
-            else{
-                String number = request.getParameter("phonenumber").substring(matcher.start(),matcher.end());
+            } else {
+                String number = request.getParameter("phonenumber").substring(matcher.start(), matcher.end());
                 phoneNumber = Integer.parseInt(number);
             }
-        }
-        else{
+        } else {
             errorFlag = true;
             errorString = errorString + ",numero de téléphone null";
         }
-        
 
-        //Date check
-        if(request.getParameter("dateofbirth") == null){
+        // Date check
+        if (request.getParameter("dateofbirth") == null) {
             errorFlag = true;
             errorString = errorString + ",date de naissance invalide";
         }
 
-        if(request.getParameter("role").equals("cleaner")){
+        if (request.getParameter("role").equals("cleaner")) {
             Matcher matcher = numberPattern.matcher(request.getParameter("salary"));
-            if(!matcher.find()){
+            if (!matcher.find()) {
                 errorFlag = true;
-                errorString = errorString + ",salaire invalide"; 
+                errorString = errorString + ",salaire invalide";
             }
         }
 
-        if(!errorFlag){
-            if(request.getParameter("role").equals("cleaner")){
-                Cleaner user = new Cleaner(name, secondname, request.getParameter("pseudo"),mail,request.getParameter("password"),age,request.getParameter("bio"),phoneNumber,request.getParameter("dateofbirth"),0,0,0,Integer.valueOf(request.getParameter("salary")));
-                
+        if (!errorFlag) {
+            if (request.getParameter("role").equals("cleaner")) {
+                Cleaner user = new Cleaner(name, secondname, request.getParameter("pseudo"), mail,
+                        request.getParameter("password"), age, request.getParameter("bio"), phoneNumber,
+                        request.getParameter("dateofbirth"), 0, 0, 0, Integer.valueOf(request.getParameter("salary")));
+
                 InputStream file = request.getPart("avatar").getInputStream();
-                Files.copy(file, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\profile_picture\\"+user.getUsername()+".png").toPath(),StandardCopyOption.REPLACE_EXISTING);
-                
+                Files.copy(file, new File(getServletContext().getRealPath(getServletInfo())
+                        + "\\image\\profile_picture\\" + user.getUsername() + ".png").toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
 
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
 
-                DAOacces bdd = new DAOacces("easy_clean", "root", "");
+                DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
                 try {
-                    String strQuery= "INSERT INTO users (first_name,second_name,username,mail,password,profil_picture,age,bio,phone_number,date_of_birth,note,nb_mission,perimeter,tarif_horaire,role) VALUES('"+user.getFirstName()+"','"+user.getSecondName()+"','"+user.getUsername()+"','"+user.getEmail()+"','"+user.getPassword()+"','"+user.getUsername()+".png',"+user.getAge()+",'"+user.getDescription()+"',"+user.getPhoneNumber()+",'"+user.getDateOfBirth()+"',"+user.getGlobalGrade()+","+user.getMissionDone()+","+user.getPerimeter()+","+user.getSalaryPerHour()+",'"+user.getStatut()+"');";
-                    Statement stLogin = bdd.getConnection().createStatement();	
+                    String strQuery = "INSERT INTO users (first_name,second_name,username,mail,password,profil_picture,age,bio,phone_number,date_of_birth,note,nb_mission,perimeter,tarif_horaire,role) VALUES('"
+                            + user.getFirstName() + "','" + user.getSecondName() + "','" + user.getUsername() + "','"
+                            + user.getEmail() + "','" + user.getPassword() + "','" + user.getUsername() + ".png',"
+                            + user.getAge() + ",'" + user.getDescription() + "'," + user.getPhoneNumber() + ",'"
+                            + user.getDateOfBirth() + "'," + user.getGlobalGrade() + "," + user.getMissionDone() + ","
+                            + user.getPerimeter() + "," + user.getSalaryPerHour() + ",'" + user.getStatut() + "');";
+                    Statement stLogin = bdd.getConnection().createStatement();
                     stLogin.executeUpdate(strQuery);
 
-                    getServletContext().getRequestDispatcher("/cleaner").forward(request,response);
-                }
-                catch(SQLException e) {
-                    System.err.println("Erreur");  e.printStackTrace();
+                    getServletContext().getRequestDispatcher("/cleaner").forward(request, response);
+                } catch (SQLException e) {
+                    System.err.println("Erreur");
+                    e.printStackTrace();
                 }
                 bdd.disconnect();
-            }
-            else if(request.getParameter("role").equals("proprietaire")){
-                Proprietaire user = new Proprietaire(name, secondname, request.getParameter("pseudo"),mail,request.getParameter("password"),age,request.getParameter("bio"),phoneNumber,request.getParameter("dateofbirth"),0);
-                
+            } else if (request.getParameter("role").equals("proprietaire")) {
+                Proprietaire user = new Proprietaire(name, secondname, request.getParameter("pseudo"), mail,
+                        request.getParameter("password"), age, request.getParameter("bio"), phoneNumber,
+                        request.getParameter("dateofbirth"), 0);
+
                 InputStream file = request.getPart("avatar").getInputStream();
-                Files.copy(file, new File(getServletContext().getRealPath(getServletInfo()) + "\\image\\profile_picture\\"+user.getUsername()+".png").toPath(),StandardCopyOption.REPLACE_EXISTING);
-                
+                Files.copy(file, new File(getServletContext().getRealPath(getServletInfo())
+                        + "\\image\\profile_picture\\" + user.getUsername() + ".png").toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
 
-                DAOacces bdd = new DAOacces("easy_clean", "root", "");
+                DAOacces bdd = new DAOacces("easy_clean", "toto", "titi");
                 try {
-                    String strQuery= "INSERT INTO users (first_name,second_name,username,mail,password,profil_picture,age,bio,phone_number,date_of_birth,note,role) VALUES('"+user.getFirstName()+"','"+user.getSecondName()+"','"+user.getUsername()+"','"+user.getEmail()+"','"+user.getPassword()+"','"+user.getUsername()+".png',"+user.getAge()+",'"+user.getDescription()+"',"+user.getPhoneNumber()+",'"+user.getDateOfBirth()+"','"+user.getGlobalGrade()+"','"+user.getStatut()+"');";
-                    Statement stLogin = bdd.getConnection().createStatement();	
+                    String strQuery = "INSERT INTO users (first_name,second_name,username,mail,password,profil_picture,age,bio,phone_number,date_of_birth,note,role) VALUES('"
+                            + user.getFirstName() + "','" + user.getSecondName() + "','" + user.getUsername() + "','"
+                            + user.getEmail() + "','" + user.getPassword() + "','" + user.getUsername() + ".png',"
+                            + user.getAge() + ",'" + user.getDescription() + "'," + user.getPhoneNumber() + ",'"
+                            + user.getDateOfBirth() + "','" + user.getGlobalGrade() + "','" + user.getStatut() + "');";
+                    Statement stLogin = bdd.getConnection().createStatement();
                     stLogin.executeUpdate(strQuery);
 
-                    getServletContext().getRequestDispatcher("/proprietaire").forward(request,response);
-                }
-                catch(SQLException e) {
-                    System.err.println("Erreur");  e.printStackTrace();
+                    getServletContext().getRequestDispatcher("/proprietaire").forward(request, response);
+                } catch (SQLException e) {
+                    System.err.println("Erreur");
+                    e.printStackTrace();
                 }
                 bdd.disconnect();
             }
-        }
-        else{
+        } else {
             System.out.println(errorString);
-            getServletContext().getRequestDispatcher("/createaccount").forward(request,response);
+            getServletContext().getRequestDispatcher("/createaccount").forward(request, response);
         }
-	}
+    }
 }
