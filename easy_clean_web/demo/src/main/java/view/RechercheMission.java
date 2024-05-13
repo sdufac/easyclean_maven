@@ -54,27 +54,52 @@ public class RechercheMission extends HttpServlet {
                     SortedMap<Double, Mission> resultRecherche = SortMission(user, completeAddress);
 
                     session.setAttribute("resultMission", resultRecherche);
-                    out.append("<table>");
+                    out.append("<html>"
+                            + "<head>"
+                            + "<title>Liste des missions</title>"
+                            + "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>"
+                            + "</head>"
+                            + "<body>"
+                            + "<div class='container mt-3'>"
+                            + "<h2>Liste des missions</h2>"
+                            + "<table class='table table-bordered'>"
+                            + "<thead>"
+                            + "<tr>"
+                            + "<th>Address</th>"
+                            + "<th>Date</th>"
+                            + "<th>Duration</th>"
+                            + "<th>Instructions</th>"
+                            + "<th>Status</th>"
+                            + "<th>Action</th>"
+                            + "</tr>"
+                            + "</thead>"
+                            + "<tbody>");
+
                     for (Map.Entry<Double, Mission> missionEntry : resultRecherche.entrySet()) {
                         if (missionEntry.getKey() < maxDistance) {
                             Mission mission = missionEntry.getValue();
                             out.append("<tr>"
-                                    + "<td>" + (mission.getAdress()) + "</td>"
-                                    + "<td>" + (mission.getDate()) + "</td>"
-                                    + "<td>" + (String.valueOf(mission.getDuration())) + "</td>"
-                                    + "<td>" + (mission.getInstruction()) + "</td>"
-                                    + "<td>" + (mission.getStatut()) + "</td>"
+                                    + "<td>" + mission.getAdress() + "</td>"
+                                    + "<td>" + mission.getDate() + "</td>"
+                                    + "<td>" + String.valueOf(mission.getDuration()) + "</td>"
+                                    + "<td>" + mission.getInstruction() + "</td>"
+                                    + "<td>" + mission.getStatut() + "</td>"
                                     + "<td>"
                                     + "<form name='voirMission' method='POST' action='afficherMission' style='margin:0;'>"
-                                    + "<input type='hidden' name='missionId' value='"
-                                    + (String.valueOf(mission.getIdMission())) + "'>"
+                                    + "<input type='hidden' name='missionId' value='" + mission.getIdMission() + "'>"
                                     + "<input type='submit' value='Voir' class='btn btn-primary'>"
                                     + "</form>"
                                     + "</td>"
                                     + "</tr>");
                         }
                     }
-                    out.append("</table>");
+
+                    out.append("</tbody>"
+                            + "</table>"
+                            + "</div>"
+                            + "</body>"
+                            + "</html>");
+
                 } else {
                     out.print("Coordonnées non trouvées.");
                 }

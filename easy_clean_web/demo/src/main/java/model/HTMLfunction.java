@@ -20,12 +20,14 @@ public abstract class HTMLfunction {
 	}
 
 	public static String[] proprioTabMission(ArrayList<Mission> mtab) {
-		String[] stringTab;
-		stringTab = new String[3];
+		String[] stringTab = new String[3];
 
-		String tabAvailable = "<table>";
-		String tabWaiting = "<table>";
-		String tabFinished = "<table>";
+		StringBuilder tabAvailable = new StringBuilder(
+				"<table class='table table-bordered'><thead><tr><th>Adresse</th><th>Date</th><th>Instruction</th></tr></thead><tbody>");
+		StringBuilder tabWaiting = new StringBuilder(
+				"<table class='table table-bordered'><thead><tr><th>Adresse</th><th>Date</th><th>Instruction</th></tr></thead><tbody>");
+		StringBuilder tabFinished = new StringBuilder(
+				"<table class='table table-bordered'><thead><tr><th>Adresse</th><th>Date</th><th>Instruction</th></tr></thead><tbody>");
 
 		int availableCount = 0;
 		int waitingCount = 0;
@@ -33,115 +35,104 @@ public abstract class HTMLfunction {
 
 		for (Mission m : mtab) {
 			if (m.getStatut().equals("available")) {
-				tabAvailable = tabAvailable + "<tr>";
-				tabAvailable = tabAvailable + "<th>" + m.getAdress() + "</th>";
-				tabAvailable = tabAvailable + "<th>" + m.getDate() + "</th>";
-				tabAvailable = tabAvailable + "<th>" + m.getInstruction() + "</th>";
-				tabAvailable = tabAvailable + "</tr>";
-
+				tabAvailable.append("<tr>")
+						.append("<td>").append(m.getAdress()).append("</td>")
+						.append("<td>").append(m.getDate()).append("</td>")
+						.append("<td>").append(m.getInstruction()).append("</td>")
+						.append("</tr>");
 				availableCount++;
 			} else if (m.getStatut().equals("waiting")) {
-				tabWaiting = tabWaiting + "<tr>";
-				tabWaiting = tabWaiting + "<th>" + m.getAdress() + "</th>";
-				tabWaiting = tabWaiting + "<th>" + m.getDate() + "</th>";
-				tabWaiting = tabWaiting + "<th>" + m.getInstruction() + "</th>";
-				tabWaiting = tabWaiting + "</tr>";
-
+				tabWaiting.append("<tr>")
+						.append("<td>").append(m.getAdress()).append("</td>")
+						.append("<td>").append(m.getDate()).append("</td>")
+						.append("<td>").append(m.getInstruction()).append("</td>")
+						.append("</tr>");
 				waitingCount++;
 			} else if (m.getStatut().equals("finished")) {
-				tabFinished = tabFinished + "<tr>";
-				tabFinished = tabFinished + "<th>" + m.getAdress() + "</th>";
-				tabFinished = tabFinished + "<th>" + m.getDate() + "</th>";
-				tabFinished = tabFinished + "<th>" + m.getInstruction() + "</th>";
-				tabFinished = tabFinished + "</tr>";
-
+				tabFinished.append("<tr>")
+						.append("<td>").append(m.getAdress()).append("</td>")
+						.append("<td>").append(m.getDate()).append("</td>")
+						.append("<td>").append(m.getInstruction()).append("</td>")
+						.append("</tr>");
 				finishedCount++;
 			}
 		}
-		tabAvailable = tabAvailable + "</table>";
-		tabWaiting = tabWaiting + "</table>";
-		tabFinished = tabFinished + "</table>";
+		tabAvailable.append("</tbody></table>");
+		tabWaiting.append("</tbody></table>");
+		tabFinished.append("</tbody></table>");
 
 		if (availableCount == 0) {
-			tabAvailable = "Aucune mission en attente";
+			tabAvailable = new StringBuilder("Aucune mission en attente");
 		}
 		if (waitingCount == 0) {
-			tabWaiting = "Aucune mission en cours";
+			tabWaiting = new StringBuilder("Aucune mission en cours");
 		}
 		if (finishedCount == 0) {
-			tabFinished = "Aucune mission terminée";
+			tabFinished = new StringBuilder("Aucune mission terminée");
 		}
 
-		stringTab[0] = tabAvailable;
-		stringTab[1] = tabWaiting;
-		stringTab[2] = tabFinished;
+		stringTab[0] = tabAvailable.toString();
+		stringTab[1] = tabWaiting.toString();
+		stringTab[2] = tabFinished.toString();
 
 		return stringTab;
 	}
 
 	public static void searchMission(PrintWriter out) {
-		out.print("<head>");
-		out.print("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-		out.print("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
-		out.print("</head>");
-		out.print("<body>");
-		out.print("<div id='mission' style='flex: 2;width: 150vh'>");
-		out.print("<h3>Recherchez vôtre prochaine mission</h3>");
-		out.print(
-				"<form name='adressCleaner' method='POST' id='address' action='rechercheMission'>"
-						+ "<div>Rue :<input type='text' name='street' id='street'></div>"
-						+ "<div>Ville :<input type='text' name='city' id='city'></div>"
-						+ "<div>Code Postal :<input type='text' name='postalcode' id='postalcode'></div>"
-						+ "<div>"
-						+ "<p>Kilomètres maximum :</p>"
-						+ "<input type='number' name='maxDistance' step='0.1' required>"
-						+ "</div>"
-						+ "<div>"
-						+ "<input type='submit' id='searchMission' value='Rechercher'>"
-						+ "</div>"
-						+ "</form>");
-		out.print("<script src='src/main/webapp/WEB-INF/jsApp.js'></script>");
-		out.print("</form>");
-		out.print("</div>");
-		out.print("</body>"
+		out.append("<html>"
+				+ "<head>"
+				+ "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+				+ "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>"
+				+ "<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>"
+				+ "<title>Recherchez votre prochaine mission</title>"
+				+ "</head>"
+				+ "<body>"
+				+ "<div class='container mt-3' id='mission' style='flex: 2; width: 150vh;'>"
+				+ "<h2>Recherchez votre prochaine mission</h2>"
+				+ "<form name='adressCleaner' method='POST' id='address' action='rechercheMission'>"
+				+ "<div class='form-group'>"
+				+ "<label for='street'>Rue :</label>"
+				+ "<input type='text' class='form-control' name='street' id='street' required>"
+				+ "</div>"
+				+ "<div class='form-group'>"
+				+ "<label for='city'>Ville :</label>"
+				+ "<input type='text' class='form-control' name='city' id='city' required>"
+				+ "</div>"
+				+ "<div class='form-group'>"
+				+ "<label for='postalcode'>Code Postal :</label>"
+				+ "<input type='text' class='form-control' name='postalcode' id='postalcode' required>"
+				+ "</div>"
+				+ "<div class='form-group'>"
+				+ "<label for='maxDistance'>Kilomètres maximum :</label>"
+				+ "<input type='number' class='form-control' name='maxDistance' step='0.1' required>"
+				+ "</div>"
+				+ "<button type='submit' id='searchMission' class='btn btn-primary'>Rechercher</button>"
+				+ "</form>"
+				+ "</div>"
+				+ "<script src='src/main/webapp/WEB-INF/jsApp.js'></script>"
+				+ "</body>"
 				+ "</html>");
 
 	}
 
 	public static void profilUser(PrintWriter out, Utilisateur user) {
-		out.print("<head>");
-		out.print("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-		out.print("<link rel='stylesheet' href='src/main/webapp/WEB-INF/cssApp.css'>");
-		out.print("</head>");
-		out.print("<body>");
-		out.print("<div id='profilcontainer' style='flex: 1; border-right= 1;'>");
-		out.print("<br>");
-		out.print("<img src=./image/profil_picture/" + user.getUsername() + ".jpg' alt='image_inch'>");
-		out.print("<br>");
-		out.print("<div>Nom : ");
-		out.print(user.getFirstName() + " " + user.getSecondName());
-		out.print("</div>");
-		out.print("<div>Email : ");
-		out.print(user.getEmail());
-		out.print("</div>");
-		out.print("<div>Pseudo : ");
-		out.print(user.getUsername());
-		out.print("</div>");
-		out.print("<div>Age : ");
-		out.print(String.valueOf(user.getAge()));
-		out.print("</div>");
-		out.print("<div> Note : ");
-		out.print(String.valueOf(user.getGlobalGrade()));
-		out.print("</div>");
-		out.print("<div>Téléphone : ");
-		out.print(String.valueOf(user.getPhoneNumber()));
-		out.print("</div>");
-		out.print("<button id='logout'>Logout</button>");
-		out.print("<br>");
-		out.print("<form name='modifprofil' action='ModifProfil'>");
-		out.print("<input type='submit' id='showProfil' value='voir profil'>");
-		out.print("</form>");
-		out.print("</div>");
+		out.append("<div class='container mt-3' id='profilcontainer' style='flex: 1; border-right: 1px solid black;'>"
+				+ "<h2>Profil de l'utilisateur</h2>"
+				+ "<img src='./image/profil_picture/" + user.getUsername()
+				+ ".jpg' alt='image_inch' class='img-thumbnail'>"
+				+ "<br><br>"
+				+ "<div class='form-group'>Nom : " + user.getFirstName() + " " + user.getSecondName() + "</div>"
+				+ "<div class='form-group'>Email : " + user.getEmail() + "</div>"
+				+ "<div class='form-group'>Pseudo : " + user.getUsername() + "</div>"
+				+ "<div class='form-group'>Age : " + user.getAge() + "</div>"
+				+ "<div class='form-group'>Note : " + user.getGlobalGrade() + "</div>"
+				+ "<div class='form-group'>Téléphone : " + user.getPhoneNumber() + "</div>"
+				+ "<button id='logout' class='btn btn-danger'>Logout</button>"
+				+ "<br><br>"
+				+ "<form name='modifprofil' action='ModifProfil'>"
+				+ "<input type='submit' id='showProfil' value='Voir profil' class='btn btn-primary'>"
+				+ "</form>"
+				+ "</div>");
 	}
 
 	protected abstract Object getPhoneNumber();
