@@ -1,6 +1,5 @@
 package view;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,12 +45,18 @@ public class AfficherMission extends HttpServlet {
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 if (resultSet.next()) {
-                    String adress = resultSet.getString("adress")+" "+resultSet.getInt("code_postal")+" "+resultSet.getString("ville");
-                    Property property = new Property(resultSet.getInt("propriete_id"), adress,resultSet.getInt("code_entrer"),resultSet.getInt("surface"));
+                    String adress = resultSet.getString("adress") + " " + resultSet.getInt("code_postal") + " "
+                            + resultSet.getString("ville");
+                    Property property = new Property(resultSet.getInt("propriete_id"), adress,
+                            resultSet.getInt("code_entrer"), resultSet.getInt("surface"));
 
-                    Proprietaire proprio = new Proprietaire(resultSet.getString("first_name"), resultSet.getString("second_name"),resultSet.getString("username"),resultSet.getString("mail"), resultSet.getString("password"),resultSet.getInt("age"),  resultSet.getString("bio"), resultSet.getInt("phone_number"),resultSet.getString("date_of_birth"),resultSet.getFloat("note"));
+                    Proprietaire proprio = new Proprietaire(resultSet.getString("first_name"),
+                            resultSet.getString("second_name"), resultSet.getString("username"),
+                            resultSet.getString("mail"), resultSet.getString("password"), resultSet.getInt("age"),
+                            resultSet.getString("bio"), resultSet.getInt("phone_number"),
+                            resultSet.getString("date_of_birth"), resultSet.getFloat("note"));
                     proprio.setDateOfCreation(resultSet.getDate("date_creation"));
-					proprio.setId(resultSet.getInt("id_user"));
+                    proprio.setId(resultSet.getInt("id_user"));
 
                     mission = new Mission(
                             resultSet.getString("date_mission"),

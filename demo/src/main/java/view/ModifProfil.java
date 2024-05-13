@@ -41,10 +41,10 @@ public class ModifProfil extends HttpServlet {
         System.out.println("User: " + user.getUsername());
         ArrayList<Mission> missions = user.getMissions();
         for (Mission mission : missions) {
-            System.out.println("Mission: " + mission.getAdress() + ", Statut: " + mission.getStatut());
+            System.out.println("Mission: " + mission.getProperty().getAdress() + ", Statut: " + mission.getStatut());
         }
 
-        String[] tabMissions = HTMLfunction.proprioTabMission(missions);
+        String[] tabMissions = HTMLfunction.proprioTabMission(missions, null, null);
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -63,7 +63,7 @@ public class ModifProfil extends HttpServlet {
                     + "<body>"
                     + "<div id='container'>");
 
-            HTMLfunction.profilUser(out, (Cleaner) user);
+            HTMLfunction.profilUser(out, user);
 
             out.append("<div id='mission' class='container mt-3'>"
                     + "<h3>Vos missions en attente</h3>"
