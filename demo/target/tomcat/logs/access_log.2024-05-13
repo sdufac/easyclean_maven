@@ -1,0 +1,10 @@
+127.0.0.1 - - [13/May/2024:16:01:38 +0200] "GET /easy_clean_web/invite HTTP/1.1" 200 218 http-bio-9090-exec-1 36
+127.0.0.1 - - [13/May/2024:16:01:39 +0200] "GET /easy_clean_web/connection HTTP/1.1" 200 674 http-bio-9090-exec-1 1
+127.0.0.1 - - [13/May/2024:16:01:44 +0200] "POST /easy_clean_web/controllerconnection HTTP/1.1" 200 1304 http-bio-9090-exec-1 298
+127.0.0.1 - - [13/May/2024:16:01:44 +0200] "GET /easy_clean_web/image/profil_picture/sdufac2.jpg HTTP/1.1" 404 1083 http-bio-9090-exec-1 8
+127.0.0.1 - - [13/May/2024:16:01:44 +0200] "GET /easy_clean_web/src/main/webapp/WEB-INF/cssApp.css HTTP/1.1" 404 1085 http-bio-9090-exec-7 3
+127.0.0.1 - - [13/May/2024:16:01:44 +0200] "GET /easy_clean_web/src/main/webapp/WEB-INF/jsApp.js HTTP/1.1" 404 1083 http-bio-9090-exec-8 2
+127.0.0.1 - - [13/May/2024:16:02:02 +0200] "POST /easy_clean_web/controllerconnection HTTP/1.1" 200 239 http-bio-9090-exec-1 27
+127.0.0.1 - - [13/May/2024:16:02:10 +0200] "POST /easy_clean_web/controllerrechercheuser HTTP/1.1" 200 239 http-bio-9090-exec-1 13
+127.0.0.1 - - [13/May/2024:16:02:20 +0200] "POST /easy_clean_web/controllerrechercheuser HTTP/1.1" 200 561 http-bio-9090-exec-1 11
+127.0.0.1 - - [13/May/2024:16:02:20 +0200] "GET /easy_clean_web/image/profile_picture/sdufac.png HTTP/1.1" 404 1083 http-bio-9090-exec-7 2

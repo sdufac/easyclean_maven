@@ -76,7 +76,7 @@ public class ControllerConnection extends HttpServlet {
 						
 						//Propriétées
 						String adress = rsPostulation.getString("adress")+" "+rsPostulation.getString("ville")+" "+rsPostulation.getString("code_postal");
-						Property property = new Property(rsPostulation.getInt("propriet_id"), adress, rsPostulation.getInt("code_entrer"), rsPostulation.getInt("surface"));
+						Property property = new Property(rsPostulation.getInt("propriete_id"), adress, rsPostulation.getInt("code_entrer"), rsPostulation.getInt("surface"));
 						//Propriétaire
 						Proprietaire ppostulation = new Proprietaire(rsPostulation.getString("first_name"), rsPostulation.getString("second_name"),rsPostulation.getString("username"),rsPostulation.getString("mail"), rsPostulation.getString("password"),rsPostulation.getInt("age"),  rsPostulation.getString("bio"), rsPostulation.getInt("phone_number"),rsPostulation.getString("date_of_birth"),rsPostulation.getFloat("note"));
 						ppostulation.setDateOfCreation(rsPostulation.getDate("date_creation"));
@@ -100,7 +100,7 @@ public class ControllerConnection extends HttpServlet {
 					while(rsMissionCleaner.next()) {
 						//Création de la propiétée lié à la mission
 						String adress = rsMissionCleaner.getString("adress")+" "+rsMissionCleaner.getString("ville")+" "+rsMissionCleaner.getString("code_postal");
-						Property property = new Property(rsMissionCleaner.getInt("propriet_id"), adress, rsMissionCleaner.getInt("code_entrer"), rsMissionCleaner.getInt("surface"));
+						Property property = new Property(rsMissionCleaner.getInt("propriete_id"), adress, rsMissionCleaner.getInt("code_entrer"), rsMissionCleaner.getInt("surface"));
 						//Création du propriétaire lié à la mission
 						Proprietaire proprietaire = new Proprietaire(rsMissionCleaner.getString("first_name"), rsMissionCleaner.getString("second_name"),rsMissionCleaner.getString("username"),rsMissionCleaner.getString("mail"), rsMissionCleaner.getString("password"),rsMissionCleaner.getInt("age"),  rsMissionCleaner.getString("bio"), rsMissionCleaner.getInt("phone_number"),rsMissionCleaner.getString("date_of_birth"),rsMissionCleaner.getFloat("note"));
 						proprietaire.setDateOfCreation(rsMissionCleaner.getDate("date_creation"));
